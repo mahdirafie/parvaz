@@ -4,7 +4,9 @@ import 'package:parvaz_event/ui/company/filter_page.dart';
 import 'package:parvaz_event/ui/company/student_card.dart';
 
 class CompanyHome extends StatefulWidget {
-  const CompanyHome({Key? key}) : super(key: key);
+  const CompanyHome({Key? key, required this.waiting, required this.confirmed}) : super(key: key);
+  final bool waiting;
+  final bool confirmed;
 
   @override
   State<CompanyHome> createState() => _CompanyHomeState();
@@ -52,7 +54,7 @@ class _CompanyHomeState extends State<CompanyHome> {
         padding: const EdgeInsets.all(8.0),
         child: ListView.separated(
           itemBuilder: (context, index) {
-            return StudentCard(student: st,);
+            return StudentCard(student: st,waiting: widget.waiting,confirmed: widget.confirmed,);
           },
           itemCount: 20,
           separatorBuilder: (context, index) => const SizedBox(

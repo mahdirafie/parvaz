@@ -1,7 +1,13 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 class FilterShow extends StatefulWidget {
-  const FilterShow({Key? key, required this.university, required this.field, required this.avg}) : super(key: key);
+  const FilterShow(
+      {Key? key,
+      required this.university,
+      required this.field,
+      required this.avg})
+      : super(key: key);
   final ValueChanged<String> university;
   final ValueChanged<String> field;
   final ValueChanged<double> avg;
@@ -11,8 +17,8 @@ class FilterShow extends StatefulWidget {
 }
 
 class _FilterShowState extends State<FilterShow> {
-  String? _chosenValue;
-  String? _field;
+  double average = 15;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -20,21 +26,37 @@ class _FilterShowState extends State<FilterShow> {
       appBar: AppBar(
         title: const Text("فیلتر کردن"),
       ),
-      body:Directionality(
+      body: Directionality(
         textDirection: TextDirection.rtl,
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: SingleChildScrollView(
             child: ListBody(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("معدل بیشتر از : ",style: theme.textTheme.titleLarge,),
-                    const SizedBox(width: 200, child: TextField(keyboardType: TextInputType.number,)),
-                  ],
+                Text(
+                  "معدل بیشتر از : ",
+                  style: theme.textTheme.titleLarge,
                 ),
-                SizedBox(height: 20,),
+                Slider(
+                  value: average,
+                  onChanged: (value) {
+                    widget.avg(value);
+                    setState(() {
+                      average = value;
+                    });
+                  },
+                  max: 20,
+                  min: 10,
+                  divisions: 20,
+                  label: "$average",
+                  activeColor: Colors.black,
+                  inactiveColor: theme.primaryColor,
+                  thumbColor: theme.primaryColor,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+
                 // DropdownSearch<String>(
                 //   items: const ["بوعلی", "صنعتی" , "آزاد"],
                 //   onChanged: (value) {
@@ -54,7 +76,6 @@ class _FilterShowState extends State<FilterShow> {
                 //     dropdownSearchDecoration: InputDecoration(labelText: "رشته"),
                 //   ),
                 // ),
-                
               ],
             ),
           ),

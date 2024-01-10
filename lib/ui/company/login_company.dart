@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:parvaz_event/ui/company/company_layout.dart';
+import 'package:parvaz_event/ui/root/company_root.dart';
 
 class LoginCompany extends StatefulWidget {
   const LoginCompany({Key? key, required this.loginPage}) : super(key: key);
@@ -54,7 +55,7 @@ class _LoginCompanyState extends State<LoginCompany> {
                     height: 16,
                   ),
                   ElevatedButton(onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CompanyHome(),));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CompanyRootScreen(),));
 
                   }, child: const Text('ورود')),
                   const SizedBox(

@@ -17,6 +17,8 @@ class _LoginChoiceState extends State<LoginChoice> {
   Widget build(BuildContext context) {
     return DefaultTabController(length: 2, child: Scaffold(
       appBar: AppBar(
+        title: const Text("تواناجو"),
+        centerTitle: true,
         bottom: const TabBar(
           tabs: [
             Tab(text: "دانشجو",icon: Icon(Icons.menu_book_rounded),),
