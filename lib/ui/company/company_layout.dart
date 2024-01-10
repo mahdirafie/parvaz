@@ -1,4 +1,3 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:parvaz_event/data/student.dart';
 import 'package:parvaz_event/ui/company/filter_page.dart';

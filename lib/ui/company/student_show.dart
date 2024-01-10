@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parvaz_event/data/student.dart';
+import 'package:parvaz_event/theme.dart';
 
 class StudentShow extends StatelessWidget {
   const StudentShow({Key? key, required this.student}) : super(key: key);
@@ -120,7 +121,58 @@ class StudentShow extends StatelessWidget {
                           style: theme.textTheme.titleLarge,
                           overflow: TextOverflow.clip,
                         ),
-                      )),)
+                      )),),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(onPressed: () {
+                      showDialog(context: context, builder: (context) {
+                        return Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: AlertDialog(
+                            title: const Text("پیام به کاربر"),
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: [
+                                  TextFormField(
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 6,
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ElevatedButton(onPressed: () {
+                                        Navigator.pop(context);
+                                      }, child: const Text("ارسال")),
+                                      ElevatedButton(onPressed: () {
+                                        Navigator.pop(context);
+                                      }, child: const Text("لغو"),style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.resolveWith((states) {
+                                          return Colors.white;
+                                        }),
+                                        foregroundColor: MaterialStateProperty.resolveWith((states) {
+                                          return LightTheme.primaryColor;
+                                        }),
+                                      )),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },);
+                    }, child: const Text("دعوت به همکاری"),style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith((states) {
+                        return Colors.green;
+                      }),
+                    ),),
+                    ElevatedButton(onPressed: () {
+
+                    }, child: const Text("افزودن به لیست ذخیره"),),
+                  ],
+                )
               ],
             ),
           ),
