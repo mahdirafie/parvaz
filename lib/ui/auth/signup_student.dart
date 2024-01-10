@@ -5,7 +5,8 @@ import 'package:parvaz_event/ui/auth/login_student.dart';
 import 'package:parvaz_event/ui/auth/student_contact_info.dart';
 
 class SignUpStudentScreen extends StatefulWidget {
-  const SignUpStudentScreen({super.key});
+  const SignUpStudentScreen({super.key, required this.loginPage});
+  final ValueChanged<bool> loginPage;
 
   @override
   State<SignUpStudentScreen> createState() => _SignUpStudentScreenState();
@@ -82,11 +83,7 @@ class _SignUpStudentScreenState extends State<SignUpStudentScreen> {
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) {
-                        return const LoginStudentScreen();
-                      },
-                    ));
+                    widget.loginPage(true);
                   },
                   child: const Text('آیا در حال حاضر حسابی دارید؟'))
             ],

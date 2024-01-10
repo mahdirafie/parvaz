@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:parvaz_event/ui/auth/signup_student.dart';
 
 class LoginStudentScreen extends StatefulWidget {
-  const LoginStudentScreen({super.key});
+  const LoginStudentScreen({super.key, required this.loginPage});
+  final ValueChanged<bool> loginPage;
 
   @override
   State<LoginStudentScreen> createState() => _LoginStudentScreenState();
@@ -54,7 +55,7 @@ class _LoginStudentScreenState extends State<LoginStudentScreen> {
                 height: 16,
               ),
               ElevatedButton(onPressed: () {
-           
+
 
               }, child: const Text('ورود')),
               const SizedBox(
@@ -62,11 +63,7 @@ class _LoginStudentScreenState extends State<LoginStudentScreen> {
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) {
-                        return const SignUpStudentScreen();
-                      },
-                    ));
+                    widget.loginPage(false);
                   },
                   child: const Text('آیا حسابی ندارید؟'))
             ],
