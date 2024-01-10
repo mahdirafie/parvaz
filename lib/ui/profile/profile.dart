@@ -19,11 +19,24 @@ class StudentProfileScreen extends StatefulWidget {
 class _StudentProfileScreenState extends State<StudentProfileScreen> {
   File? img;
   final List<String> studentSkills = [];
+  String studentResume = "";
+  final TextEditingController _resumeController = TextEditingController();
+
+  @override
+  void dispose() {
+    _resumeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(onPressed: () {
+        
+      }, label: const Text('ذخیره'), backgroundColor: theme.colorScheme.primary,),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       resizeToAvoidBottomInset: true,
       backgroundColor: const Color.fromARGB(255, 231, 231, 231),
       body: CustomScrollView(
@@ -32,6 +45,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
           Directionality(
             textDirection: TextDirection.ltr,
             child: SliverAppBar(
+              backgroundColor: theme.colorScheme.primary,
               centerTitle: true,
               leading: IconButton(
                 onPressed: () {},
@@ -45,7 +59,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
               flexibleSpace: FlexibleSpaceBar(
                 title: Container(
                     decoration: BoxDecoration(boxShadow: const [
-                      BoxShadow(color: Colors.white, blurRadius: 15)
+                      BoxShadow(color: Colors.white, blurRadius: 30)
                     ], borderRadius: BorderRadius.circular(5)),
                     child: Text(
                       'مهدی رفیعی',
@@ -435,14 +449,110 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                     padding: const EdgeInsets.fromLTRB(25, 12, 25, 12),
                     child: Column(
                       children: [
-                        Text('رزومه دانشجو', style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w800),)
+                        Text(
+                          'رزومه دانشجو',
+                          style: theme.textTheme.bodyLarge!
+                              .copyWith(fontWeight: FontWeight.w800),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        studentResume.isEmpty
+                            ? GestureDetector(
+                                onTap: () {
+                                  _showDialog(context);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: theme.colorScheme.surface,
+                                      boxShadow: [
+                                        const BoxShadow(
+                                            color: Colors.grey, blurRadius: 10)
+                                      ],
+                                      borderRadius: BorderRadius.circular(12)),
+                                  height: 60,
+                                  width: double.infinity,
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('نوشتن رزومه'),
+                                      Icon(CupertinoIcons.pen)
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Column(
+                                children: [
+                                  Text(
+                                    studentResume,
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        _showDialog(context);
+                                      },
+                                      child: const Text('ویرایش'))
+                                ],
+                              )
                       ],
                     )),
               ),
             ),
           ),
+          const SliverToBoxAdapter(child: const SizedBox(height: 80,))
         ],
       ),
+    );
+  }
+
+  Future<void> _showDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('رزومه'),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              // height: MediaQuery.of(context)
+              //         .size
+              //         .height /
+              //     2,
+              child: Column(
+                children: [
+                  const Text(
+                    'توضیحی مختصر از مهارت ها و سوابق کار خود بنویسید:',
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  TextFormField(
+                    maxLines: 7,
+                    maxLength: 300,
+                    controller: _resumeController,
+                  )
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    if (_resumeController.text.isNotEmpty) {
+                      setState(() {
+                        studentResume = _resumeController.text;
+                      });
+                    }
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('ذخیره')),
+            ),
+          ],
+        );
+      },
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parvaz_event/ui/profile/profile.dart';
+import 'package:parvaz_event/ui/root/student_root.dart';
 
 class GetStudentContantInfoScreen extends StatelessWidget {
   const GetStudentContantInfoScreen({super.key});
@@ -36,7 +37,7 @@ class GetStudentContantInfoScreen extends StatelessWidget {
               ElevatedButton(onPressed: () {
                 //TODO: make request here
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return const StudentProfileScreen();
+                  return const RootScreen();
                 },));
               }, child: const Text('تمام'))
             ],
