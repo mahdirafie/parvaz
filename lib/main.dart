@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parvaz_event/theme.dart';
+import 'package:parvaz_event/ui/company/company_layout.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,8 +12,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    const TextStyle defaultTextStyle = TextStyle(fontFamily: 'IranYekan', color: Colors.white);
+    const TextStyle defaultTextStyle = TextStyle(fontFamily: 'IranYekan', color: Colors.black);
     return MaterialApp(
+
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         textTheme: TextTheme(
@@ -60,7 +63,7 @@ class MyApp extends StatelessWidget {
         ),
         dividerTheme: const DividerThemeData(color: Colors.grey, indent: 12, endIndent: 12, space: 0)
       ),
-      // home: const Home()
+        home: const Directionality(textDirection: TextDirection.rtl, child: CompanyHome()),
     );
   }
 }
