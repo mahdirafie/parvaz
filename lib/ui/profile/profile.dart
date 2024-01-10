@@ -1,7 +1,10 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:parvaz_event/data/constants.dart';
+import 'package:parvaz_event/theme.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -15,11 +18,13 @@ class StudentProfileScreen extends StatefulWidget {
 
 class _StudentProfileScreenState extends State<StudentProfileScreen> {
   File? img;
+  final List<String> studentSkills = [];
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: const Color.fromARGB(255, 231, 231, 231),
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -354,13 +359,178 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                           'مهارت های دانشجو',
                           style: theme.textTheme.bodyLarge!
                               .copyWith(fontWeight: FontWeight.w800),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                const BoxShadow(
+                                    color: Colors.grey, blurRadius: 10)
+                              ],
+                              color: theme.colorScheme.surface),
+                          child: dropDownSearch(context),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Wrap(
+                            alignment: WrapAlignment.center,
+                            children: studentSkills.map((item) {
+                              return InkWell(
+                                onLongPress: () {
+                                  setState(() {
+                                    studentSkills.remove(item);
+                                    debugPrint(studentSkills.toString());
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  margin: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.purple,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  // alignment: Alignment.center,
+                                  child: Text(
+                                    item,
+                                    style: theme.textTheme.bodyLarge!.copyWith(
+                                        color: theme.colorScheme.onPrimary),
+                                  ),
+                                ),
+                              );
+                            }).toList()),
+                        Text(
+                          'برای حذف مهارت دست خود را روی مهارت مورد نظر نگه دارید.',
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.bodySmall!
+                              .copyWith(color: LightTheme.secondaryTextColor),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                  theme.colorScheme.primary)),
+                          child: const Text('ذخیره مهارت ها'),
                         )
                       ],
                     ),
                   )),
             ),
           ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 25, right: 25, top: 12, bottom: 12),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 12, 25, 12),
+                    child: Column(
+                      children: [
+                        Text('رزومه دانشجو', style: theme.textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.w800),)
+                      ],
+                    )),
+              ),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget dropDownSearch(BuildContext context) {
+    final TextEditingController _controller = TextEditingController();
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2<String>(
+        isExpanded: true,
+        hint: Text(
+          'افزودن مهارت',
+          style: TextStyle(
+            fontSize: 14,
+            color: Theme.of(context).hintColor,
+          ),
+        ),
+        items: skills
+            .map((item) => DropdownMenuItem(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ))
+            .toList(),
+        value: null,
+        onChanged: (value) {
+          if (value != null) {
+            setState(() {
+              studentSkills.add(value);
+            });
+          }
+        },
+        buttonStyleData: const ButtonStyleData(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          height: 40,
+          width: 200,
+        ),
+        dropdownStyleData: const DropdownStyleData(
+          maxHeight: 200,
+        ),
+        menuItemStyleData: const MenuItemStyleData(
+          height: 40,
+        ),
+        dropdownSearchData: DropdownSearchData(
+          searchController: _controller,
+          searchInnerWidgetHeight: 50,
+          searchInnerWidget: Container(
+            height: 50,
+            padding: const EdgeInsets.only(
+              top: 8,
+              bottom: 4,
+              right: 8,
+              left: 8,
+            ),
+            child: TextFormField(
+              expands: true,
+              maxLines: null,
+              controller: _controller,
+              decoration: InputDecoration(
+                isDense: true,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
+                hintText: 'افزودن مهارت',
+                hintStyle: const TextStyle(fontSize: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+          ),
+          searchMatchFn: (item, searchValue) {
+            debugPrint(searchValue);
+            return item.value
+                .toString()
+                .toLowerCase()
+                .contains(searchValue.toLowerCase());
+          },
+        ),
+        //This to clear the search value when you close the menu
+        onMenuStateChange: (isOpen) {
+          if (!isOpen) {
+            _controller.clear();
+          }
+        },
       ),
     );
   }
