@@ -39,7 +39,7 @@ class StudentShow extends StatelessWidget {
                                   .of(context)
                                   .size
                                   .width)),
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                         backgroundImage: NetworkImage(
                             "https://collegeboardingpass.org/wp-content/uploads/2019/12/CBP-blog-female-student-on-campus-1-scaled.jpg"),
                       ),
@@ -75,13 +75,19 @@ class StudentShow extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding:
-                  const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                  child: Row(
+                Card(
+                  child: Column(
                     children: [
-                      Text("سابقه کار : ", style: theme.textTheme.bodyLarge),
-                      Text("2 ماه", style: theme.textTheme.bodyLarge),
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                        child: Row(
+                          children: [
+                            Text("سابقه کار : ", style: theme.textTheme.bodyLarge),
+                            Text("2 ماه", style: theme.textTheme.bodyLarge),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -176,6 +182,57 @@ class StudentShow extends StatelessWidget {
               ],
             ),
           ),
+        ),
+        bottomSheet: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(onPressed: () {
+              showDialog(context: context, builder: (context) {
+                return Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: AlertDialog(
+                    title: const Text("پیام به کاربر"),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: [
+                          TextFormField(
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 6,
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ElevatedButton(onPressed: () {
+                                Navigator.pop(context);
+                              }, child: const Text("ارسال")),
+                              ElevatedButton(onPressed: () {
+                                Navigator.pop(context);
+                              }, child: const Text("لغو"),style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.resolveWith((states) {
+                                  return Colors.white;
+                                }),
+                                foregroundColor: MaterialStateProperty.resolveWith((states) {
+                                  return LightTheme.primaryColor;
+                                }),
+                              )),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },);
+            }, child: const Text("دعوت به همکاری"),style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.resolveWith((states) {
+                return Colors.green;
+              }),
+            ),),
+            ElevatedButton(onPressed: () {
+
+            }, child: const Text("افزودن به لیست ذخیره"),),
+          ],
         ),
       ),
     );
