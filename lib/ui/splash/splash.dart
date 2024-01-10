@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:parvaz_event/ui/auth/signup_student.dart';
 import 'package:parvaz_event/ui/login_choice.dart';
 
 class SplashScreen extends StatefulWidget {

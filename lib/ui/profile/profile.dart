@@ -475,8 +475,9 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                                   child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+                                      Icon(CupertinoIcons.pen),
+                                      SizedBox(width: 8,),
                                       Text('نوشتن رزومه'),
-                                      Icon(CupertinoIcons.pen)
                                     ],
                                   ),
                                 ),
