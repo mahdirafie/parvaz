@@ -9,4 +9,7 @@ class LightTheme {
   static const Color onSurfaceColor = Colors.black;
   static const Color backgroundColor = Color(0xffF8F8F8);
   static const Color onBackgroundColor = Colors.black;
+
+  static const Color primaryTextColor = Colors.black;
+  static const Color secondaryTextColor = Colors.grey;
 }
