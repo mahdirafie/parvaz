@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:parvaz_event/data/student.dart';
+import 'package:parvaz_event/ui/company/student_show.dart';
 
 class StudentCard extends StatelessWidget {
-  const StudentCard({Key? key}) : super(key: key);
-
+  const StudentCard({Key? key, required this.student}) : super(key: key);
+  final Student student;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => StudentShow(student: student),));
+      },
       child: Container(
         decoration: BoxDecoration(
             //border: Border.all(color: Colors.black, width: 0.5),
@@ -15,7 +20,7 @@ class StudentCard extends StatelessWidget {
             ),
         width: MediaQuery.of(context).size.width,
         child: Padding(
-          padding: EdgeInsets.fromLTRB(15,5,15,5),
+          padding: const EdgeInsets.fromLTRB(15,5,15,5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -41,7 +46,7 @@ class StudentCard extends StatelessWidget {
                   ],
                 ),
               ),
-              ElevatedButton( onPressed: () {  },
+              ElevatedButton( onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => StudentShow(student: student),)); },
               child:const Text("مشاهده"))
             ],
           ),
