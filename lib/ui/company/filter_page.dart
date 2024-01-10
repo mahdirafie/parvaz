@@ -1,4 +1,3 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
 class FilterShow extends StatefulWidget {
@@ -36,25 +35,25 @@ class _FilterShowState extends State<FilterShow> {
                   ],
                 ),
                 SizedBox(height: 20,),
-                DropdownSearch<String>(
-                  items: const ["بوعلی", "صنعتی" , "آزاد"],
-                  onChanged: (value) {
-                    _field = value;
-                  },
-                  dropdownDecoratorProps: const DropDownDecoratorProps(
-                    dropdownSearchDecoration: InputDecoration(labelText: "دانشگاه"),
-                  ),
-                ),
-                const SizedBox(height: 20,),
-                DropdownSearch<String>(
-                  items: const ["مهندسی کامپیوتر", "مهندسی مکانیک" , "شیمی" , "فیزیک"],
-                  onChanged: (value) {
-                    _field = value;
-                  },
-                  dropdownDecoratorProps: const DropDownDecoratorProps(
-                    dropdownSearchDecoration: InputDecoration(labelText: "رشته"),
-                  ),
-                ),
+                // DropdownSearch<String>(
+                //   items: const ["بوعلی", "صنعتی" , "آزاد"],
+                //   onChanged: (value) {
+                //     _field = value;
+                //   },
+                //   dropdownDecoratorProps: const DropDownDecoratorProps(
+                //     dropdownSearchDecoration: InputDecoration(labelText: "دانشگاه"),
+                //   ),
+                // ),
+                // const SizedBox(height: 20,),
+                // DropdownSearch<String>(
+                //   items: const ["مهندسی کامپیوتر", "مهندسی مکانیک" , "شیمی" , "فیزیک"],
+                //   onChanged: (value) {
+                //     _field = value;
+                //   },
+                //   dropdownDecoratorProps: const DropDownDecoratorProps(
+                //     dropdownSearchDecoration: InputDecoration(labelText: "رشته"),
+                //   ),
+                // ),
 
               ],
             ),
