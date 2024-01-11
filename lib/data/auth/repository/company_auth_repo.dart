@@ -1,7 +1,8 @@
-import 'package:parvaz_event/data/datasource/company_auth_data_source.dart';
+import 'package:parvaz_event/data/auth/datasource/company_auth_data_source.dart';
 import 'package:parvaz_event/data/httpclient.dart';
 
-final CompanyAuthRemoteRepository authRepository = CompanyAuthRemoteRepository(
+
+final CompanyAuthRemoteRepository companyAuthRepository = CompanyAuthRemoteRepository(
     dataSource: CompanyAuthRemoteDataSource(httpClient: httpClient));
 
 abstract class ICompanyAuthRepository {

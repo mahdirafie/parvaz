@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:parvaz_event/data/datasource/student_auth_data_source.dart';
+import 'package:parvaz_event/data/auth/datasource/student_auth_data_source.dart';
 import 'package:parvaz_event/data/httpclient.dart';
 
-final StudentAuthRemoteRepository authRepository = StudentAuthRemoteRepository(
+final StudentAuthRemoteRepository studentAuthRepository = StudentAuthRemoteRepository(
     dataSource: StudentAuthRemoteDataSource(httpClient: httpClient));
 
 abstract class IStudentAuthRepository {

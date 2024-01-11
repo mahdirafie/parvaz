@@ -29,67 +29,69 @@ class _SignUpStudentScreenState extends State<SignUpStudentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: SizedBox(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 25, right: 25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/icon.png',
-                width: 100,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              TextFormField(
-                controller: _idCode,
-                decoration: const InputDecoration(hintText: 'کد ملی'),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              TextFormField(
-                controller: _password,
-                decoration: const InputDecoration(hintText: 'رمز عبور'),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              TextFormField(
-                controller: _confirmPassword,
-                decoration: const InputDecoration(hintText: 'تایید رمز عبور'),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(child: dropDown(context)),
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(onPressed: () {
-                   Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return const GetStudentContantInfoScreen();
-              },));
-              }, child: const Text('ثبت نام')),
-              const SizedBox(
-                height: 2,
-              ),
-              TextButton(
-                  onPressed: () {
-                    widget.loginPage(true);
-                  },
-                  child: const Text('آیا در حال حاضر حسابی دارید؟'))
-            ],
-          ),
-        ),
-      )),
+          child: SingleChildScrollView(
+            child: SizedBox(
+                    child: Padding(
+            padding: const EdgeInsets.only(left: 25, right: 25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/icon.png',
+                  width: 100,
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                TextFormField(
+                  controller: _idCode,
+                  decoration: const InputDecoration(hintText: 'کد ملی'),
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                TextFormField(
+                  controller: _password,
+                  decoration: const InputDecoration(hintText: 'رمز عبور'),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                TextFormField(
+                  controller: _confirmPassword,
+                  decoration: const InputDecoration(hintText: 'تایید رمز عبور'),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(child: dropDown(context)),
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                ElevatedButton(onPressed: () {
+                     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                  return const GetStudentContantInfoScreen();
+                },));
+                }, child: const Text('ثبت نام')),
+                const SizedBox(
+                  height: 2,
+                ),
+                TextButton(
+                    onPressed: () {
+                      widget.loginPage(true);
+                    },
+                    child: const Text('آیا در حال حاضر حسابی دارید؟'))
+              ],
+            ),
+                    ),
+                  ),
+          )),
     );
   }
 
