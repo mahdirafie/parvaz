@@ -30,7 +30,7 @@ class _CompanyRootScreenState extends State<CompanyRootScreen> {
 
   Future<bool> _onWillPop() async {
     final NavigatorState currentSelectedTabNavigatorState =
-    map[selectedScreenIndex]!.currentState!;
+        map[selectedScreenIndex]!.currentState!;
     if (currentSelectedTabNavigatorState.canPop()) {
       currentSelectedTabNavigatorState.pop();
       return false;
@@ -47,17 +47,28 @@ class _CompanyRootScreenState extends State<CompanyRootScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
+    return WillPopScope(
+        onWillPop: _onWillPop,
         child: Scaffold(
           body: IndexedStack(
             index: selectedScreenIndex,
             children: [
               _navigator(
-                  _exploreKey, explore, const CompanyHome(waiting: false,confirmed: false,)),
+                  _exploreKey,
+                  explore,
+                  const CompanyHome(
+                    waiting: false,
+                    confirmed: false,
+                  )),
+              _navigator(_waitingKey, waiting,
+                  const CompanyHome(waiting: true, confirmed: false)),
               _navigator(
-                  _waitingKey, waiting, const CompanyHome(waiting: true,confirmed: false)),
-              _navigator(
-                  _confirmedKey, confirmed, const CompanyHome(waiting: false,confirmed: true,)),
+                  _confirmedKey,
+                  confirmed,
+                  const CompanyHome(
+                    waiting: false,
+                    confirmed: true,
+                  )),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -73,7 +84,8 @@ class _CompanyRootScreenState extends State<CompanyRootScreen> {
                   ),
                   label: 'صف انتظار'),
               BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.check_mark_circled), label: 'تایید شده'),
+                  icon: Icon(CupertinoIcons.check_mark_circled),
+                  label: 'تایید شده'),
             ],
             currentIndex: selectedScreenIndex,
             onTap: (selectedIndex) {
@@ -91,12 +103,10 @@ class _CompanyRootScreenState extends State<CompanyRootScreen> {
     return key.currentState == null && selectedScreenIndex != index
         ? Container()
         : Navigator(
-        key: key,
-        onGenerateRoute: (settings) =>
-            MaterialPageRoute(
-                builder: (context) =>
-                    Offstage(
-                        offstage: selectedScreenIndex != index, child: child)));
+            key: key,
+            onGenerateRoute: (settings) => MaterialPageRoute(
+                builder: (context) => Offstage(
+                    offstage: selectedScreenIndex != index, child: child)));
   }
 
   @override

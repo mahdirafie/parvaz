@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parvaz_event/data/DTO/studentDTO.dart';
 import 'package:parvaz_event/ui/company/student_show.dart';
+import 'package:parvaz_event/ui/student_detail/student_detail.dart';
 
 class StudentCard extends StatelessWidget {
   const StudentCard({Key? key, /*required this.student, */required this.waiting, required this.confirmed})
