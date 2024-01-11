@@ -1,3 +1,4 @@
+import 'package:parvaz_event/data/DTO/companyDTO.dart';
 import 'package:parvaz_event/data/auth/datasource/company_auth_data_source.dart';
 import 'package:parvaz_event/data/httpclient.dart';
 
@@ -6,8 +7,8 @@ final CompanyAuthRemoteRepository companyAuthRepository = CompanyAuthRemoteRepos
     dataSource: CompanyAuthRemoteDataSource(httpClient: httpClient));
 
 abstract class ICompanyAuthRepository {
-  Future<void> signUp(int idMeli, int sabt);
-  Future<void> login(int idMeli, int sabt);
+  Future<void> signUp(CompanyDTO companyDTO);
+  Future<void> login(CompanyDTO companyDTO);
 }
 
 class CompanyAuthRemoteRepository implements ICompanyAuthRepository {
@@ -15,12 +16,12 @@ class CompanyAuthRemoteRepository implements ICompanyAuthRepository {
 
   CompanyAuthRemoteRepository({required this.dataSource});
   @override
-  Future<void> login(int idMeli, int sabt) {
-    return dataSource.login(idMeli, sabt);
+  Future<void> login(CompanyDTO companyDTO) {
+    return dataSource.login(companyDTO);
   }
 
   @override
-  Future<void> signUp(int idMeli, int sabt) {
-    return dataSource.signUp(idMeli, sabt);
+  Future<void> signUp(CompanyDTO companyDTO) {
+    return dataSource.signUp(companyDTO);
   }
 }

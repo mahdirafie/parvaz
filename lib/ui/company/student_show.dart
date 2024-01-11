@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:parvaz_event/data/student.dart';
+import 'package:parvaz_event/data/DTO/studentDTO.dart';
 import 'package:parvaz_event/theme.dart';
 
 class StudentShow extends StatelessWidget {
-  const StudentShow({Key? key, required this.student, required this.waiting, required this.confirmed})
+  const StudentShow({Key? key, /*required this.student,*/ required this.waiting, required this.confirmed})
       : super(key: key);
-  final Student student;
+  //final Student student;
   final bool waiting;
   final bool confirmed;
 
@@ -42,7 +42,7 @@ class StudentShow extends StatelessWidget {
                         width: MediaQuery.of(context).size.width / 2.5,
                         child: Center(
                           child: Text(
-                            student.name,
+                            "salam",//student.name,
                             style: theme.textTheme.titleLarge,
                             overflow: TextOverflow.clip,
                             maxLines: 3,

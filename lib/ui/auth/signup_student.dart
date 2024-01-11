@@ -53,6 +53,11 @@ class _SignUpStudentScreenState extends State<SignUpStudentScreen> {
               content: Text(state.message),
               backgroundColor: Colors.red,
             ));
+          }else if (state is StudentSignUpWrongInfo) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ));
           }
         });
         return bloc;
@@ -133,14 +138,13 @@ class _SignUpStudentScreenState extends State<SignUpStudentScreen> {
                           (BuildContext context, StudentSignUpState state) {
                         return ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RootScreen(),));
-                              // if (_formKey.currentState!.validate()) {
-                              //   BlocProvider.of<StudentSignUpBloc>(context).add(
-                              //       StudentSignUpButtonClicked(
-                              //           codeMeli: int.parse(_idCode.text),
-                              //           daneshgah: selectedUniversity,
-                              //           password: _password.text));
-                              // }
+                               if (_formKey.currentState!.validate()) {
+                                 BlocProvider.of<StudentSignUpBloc>(context).add(
+                                     StudentSignUpButtonClicked(
+                                         codeMeli: _idCode.text,
+                                         daneshgah: selectedUniversity,
+                                         password: _password.text));
+                               }
                             },
                             child: state is! StudentSignUpLoading
                                 ? const Text('ثبت نام')

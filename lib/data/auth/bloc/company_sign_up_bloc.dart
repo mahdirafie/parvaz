@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:parvaz_event/data/DTO/companyDTO.dart';
 import 'package:parvaz_event/data/auth/repository/company_auth_repo.dart';
 import 'package:parvaz_event/data/exception.dart';
 
@@ -13,8 +14,7 @@ class CompanySignUpBloc extends Bloc<CompanySignUpEvent, CompanySignUpState> {
       if (event is CompanySignUpButtonClicked) {
         try {
           emit(CompanySignUpLoading());
-          await authRepository.signUp(event.idMeli, event.sabt);
-        } on CompanySignUpSuccess catch (_) {
+          await authRepository.signUp(event.companyDTO);
           emit(CompanySignUpSuccess(message: 'با موفقیت ثبت نام شدید!'));
         } on SignUpUserAlreadyExistsException catch (_) {
           emit(CompanySignUpUserAlreadyExists(message: _.message));

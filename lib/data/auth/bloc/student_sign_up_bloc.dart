@@ -15,10 +15,11 @@ class StudentSignUpBloc extends Bloc<StudentSignUpEvent, StudentSignUpState> {
           emit(StudentSignUpLoading());
           await authRepository.signUp(event.codeMeli, event.daneshgah,
               event.password);
-        } on StudentSignUpSuccess catch (_) {
           emit(StudentSignUpSuccess(message: 'با موفقیت ثبت نام شدید!'));
         } on SignUpUserAlreadyExistsException catch (_) {
           emit(StudentSignUpUserAlreadyExists(message: _.message));
+        } on SignUpWrongInfo catch (_) {
+          emit(StudentSignUpWrongInfo(message: _.message));
         } catch (e) {
           emit(StudentSignUpFailure(message: 'ثبت نام با خطا مواجه شد!'));
         }

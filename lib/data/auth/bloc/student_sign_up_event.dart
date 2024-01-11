@@ -4,7 +4,7 @@ part of 'student_sign_up_bloc.dart';
 sealed class StudentSignUpEvent {}
 
 class StudentSignUpButtonClicked extends StudentSignUpEvent {
-  final int codeMeli;
+  final String codeMeli;
   final String daneshgah;
   final String password;
 

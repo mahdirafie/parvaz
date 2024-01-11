@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parvaz_event/data/DTO/companyDTO.dart';
 import 'package:parvaz_event/data/auth/bloc/company_login_bloc.dart';
 import 'package:parvaz_event/data/auth/repository/company_auth_repo.dart';
 import 'package:parvaz_event/ui/root/company_root.dart';
@@ -18,13 +19,13 @@ class LoginCompany extends StatefulWidget {
 class _LoginCompanyState extends State<LoginCompany> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _idcode = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController _sabt = TextEditingController();
   StreamSubscription<CompanyLoginState>? streamSubscription;
 
   @override
   void dispose() {
     _idcode.dispose();
-    _password.dispose();
+    _sabt.dispose();
     streamSubscription?.cancel();
     super.dispose();
   }
@@ -94,7 +95,7 @@ class _LoginCompanyState extends State<LoginCompany> {
                       height: 12,
                     ),
                     TextFormField(
-                      controller: _password,
+                      controller: _sabt,
                       decoration: const InputDecoration(hintText: 'کد ثبت'),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
@@ -110,11 +111,14 @@ class _LoginCompanyState extends State<LoginCompany> {
                         (BuildContext context, CompanyLoginState state) {
                       return ElevatedButton(
                         onPressed: () {
+                          CompanyDTO company = CompanyDTO(
+                              shenaseMeli: _idcode.text,
+                              shomareSabt: _sabt.text);
                           if (_formKey.currentState!.validate()) {
                             BlocProvider.of<CompanyLoginBloc>(context).add(
                                 CompanyLoginButtonClicked(
-                                    idMeli: int.parse(_idcode.text),
-                                    sabt: int.parse(_password.text)));
+                             companyDTO: company
+                                 ));
                           }
                         },
                         child: state is! CompanyLoginLoading

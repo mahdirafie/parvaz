@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:parvaz_event/data/DTO/companyDTO.dart';
 import 'package:parvaz_event/data/auth/repository/company_auth_repo.dart';
 import 'package:parvaz_event/data/exception.dart';
 
@@ -14,8 +15,7 @@ class CompanyLoginBloc extends Bloc<LoginEvent, CompanyLoginState> {
       if (event is CompanyLoginButtonClicked) {
         try {
           emit(CompanyLoginLoading());
-          await authRepository.login(event.idMeli, event.sabt);
-        } on CompanyLoginSuccess catch (_) {
+          await authRepository.login(event.companyDTO);
           emit(CompanyLoginSuccess(message: 'ورود با موفقیت انجام شد!'));
         } on LoginUserNotFoundException catch (_) {
           emit(CompanyLoginUserNotfound(message: _.message));

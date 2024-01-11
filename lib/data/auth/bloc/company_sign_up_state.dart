@@ -24,3 +24,9 @@ final class CompanySignUpUserAlreadyExists extends CompanySignUpState {
 
   CompanySignUpUserAlreadyExists({required this.message});
 }
+
+final class CompanySignUpWrongInfo extends CompanySignUpState {
+  final String message;
+
+  CompanySignUpWrongInfo({required this.message});
+}

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parvaz_event/data/DTO/companyDTO.dart';
 import 'package:parvaz_event/data/auth/bloc/company_sign_up_bloc.dart';
 import 'package:parvaz_event/data/auth/repository/company_auth_repo.dart';
 import 'package:parvaz_event/ui/root/company_root.dart';
@@ -18,14 +19,18 @@ class SignupCompany extends StatefulWidget {
 class _SignupCompanyState extends State<SignupCompany> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _idcode = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController _sabt = TextEditingController();
+  final TextEditingController _companyName = TextEditingController();
+  final TextEditingController _address = TextEditingController();
 
   StreamSubscription<CompanySignUpState>? streamSubscription;
 
   @override
   void dispose() {
     _idcode.dispose();
-    _password.dispose();
+    _sabt.dispose();
+    _companyName.dispose();
+    _address.dispose();
     streamSubscription?.cancel();
 
     super.dispose();
@@ -82,24 +87,50 @@ class _SignupCompanyState extends State<SignupCompany> {
                       controller: _idcode,
                       decoration: const InputDecoration(hintText: 'شناسه ملی'),
                       validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'شناسه ملی نمیتواند خالی باشد!';
-                          }
-                          return null;
-                        },
+                        if (value == null || value.trim().isEmpty) {
+                          return 'شناسه ملی نمیتواند خالی باشد!';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 12,
                     ),
                     TextFormField(
-                      controller: _password,
+                      controller: _sabt,
                       decoration: const InputDecoration(hintText: 'کد ثبت'),
                       validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'کد ثبت را وارد کنید!';
-                          }
-                          return null;
-                        },
+                        if (value == null || value.trim().isEmpty) {
+                          return 'کد ثبت را وارد کنید!';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      controller: _address,
+                      decoration: const InputDecoration(hintText: 'آدرس'),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'آدرس';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      controller: _companyName,
+                      decoration: const InputDecoration(hintText: 'نام شرکت'),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'نام شرکت';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(
                       height: 16,
@@ -108,13 +139,16 @@ class _SignupCompanyState extends State<SignupCompany> {
                         (BuildContext context, CompanySignUpState state) {
                       return ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompanyRootScreen(),));
-                          // if(_formKey.currentState!.validate()) {
-                          //   BlocProvider.of<CompanySignUpBloc>(context).add(
-                          //     CompanySignUpButtonClicked(
-                          //         idMeli: int.parse(_idcode.text),
-                          //         sabt: int.parse(_password.text)));
-                          // }
+                          CompanyDTO company = CompanyDTO(
+                              address: _address.text,
+                              companyName: _companyName.text,
+                              shenaseMeli: _idcode.text,
+                              shomareSabt: _sabt.text);
+                          if (_formKey.currentState!.validate()) {
+                            BlocProvider.of<CompanySignUpBloc>(context).add(
+                                CompanySignUpButtonClicked(
+                                    companyDTO: company));
+                          }
                         },
                         child: state is! CompanySignUpLoading
                             ? const Text('ثبت نام')

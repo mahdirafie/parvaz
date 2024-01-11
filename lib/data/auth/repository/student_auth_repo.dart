@@ -6,8 +6,8 @@ final StudentAuthRemoteRepository studentAuthRepository = StudentAuthRemoteRepos
     dataSource: StudentAuthRemoteDataSource(httpClient: httpClient));
 
 abstract class IStudentAuthRepository {
-  Future<void> signUp(int codeMeli, String daneshgah, String password);
-  Future<void> login(int codeMeli, String password);
+  Future<void> signUp(String codeMeli, String daneshgah, String password);
+  Future<void> login(String codeMeli, String password);
 }
 
 class StudentAuthRemoteRepository implements IStudentAuthRepository {
@@ -15,12 +15,12 @@ class StudentAuthRemoteRepository implements IStudentAuthRepository {
 
   StudentAuthRemoteRepository({required this.dataSource});
   @override
-  Future<void> login(int codeMeli, String password) {
+  Future<void> login(String codeMeli, String password) {
     return dataSource.login(codeMeli, password);
   }
 
   @override
-  Future<void> signUp(int codeMeli, String daneshgah, String password) {
+  Future<void> signUp(String codeMeli, String daneshgah, String password) {
     return dataSource.signUp(codeMeli, daneshgah, password);
   }
 }

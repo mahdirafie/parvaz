@@ -19,6 +19,12 @@ final class StudentSignUpFailure extends StudentSignUpState {
   StudentSignUpFailure({required this.message});
 }
 
+final class StudentSignUpWrongInfo extends StudentSignUpState {
+  final String message;
+
+  StudentSignUpWrongInfo({required this.message});
+}
+
 final class StudentSignUpUserAlreadyExists extends StudentSignUpState {
   final String message;
 

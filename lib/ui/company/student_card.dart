@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:parvaz_event/data/student.dart';
+import 'package:parvaz_event/data/DTO/studentDTO.dart';
 import 'package:parvaz_event/ui/company/student_show.dart';
 
 class StudentCard extends StatelessWidget {
-  const StudentCard({Key? key, required this.student, required this.waiting, required this.confirmed})
+  const StudentCard({Key? key, /*required this.student, */required this.waiting, required this.confirmed})
       : super(key: key);
-  final Student student;
+  //final Student student;
   final bool waiting;
   final bool confirmed;
 
@@ -18,7 +18,7 @@ class StudentCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => StudentShow(
-                student: student,
+                //student: student,
                 waiting: waiting,
                 confirmed: confirmed,
               ),
@@ -63,7 +63,7 @@ class StudentCard extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => StudentShow(
-                            student: student,
+                            /*student: student,*/
                             waiting: waiting,
                             confirmed: confirmed,
                           ),

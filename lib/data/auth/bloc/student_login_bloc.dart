@@ -15,10 +15,11 @@ class StudentLoginBloc extends Bloc<StudentLoginEvent, StudentLoginState> {
         try {
           emit(StudentLoginLoading());
           await authRepository.login(event.codeMeli, event.password);
-        } on StudentLoginSuccess catch (_) {
           emit(StudentLoginSuccess(message: 'ورود با موفقیت انجام شد!'));
         } on LoginUserNotFoundException catch (_) {
           emit(StudentLoginUserNotfound(message: _.message));
+        } on LoginWrongInfo catch (_) {
+          emit(StudentLoginWrongInfo(message: _.message));
         } on LoginWrongPasswordException catch (_) {
           emit(StudentLoginWrongPassword(message: _.message));
         } catch (_) {

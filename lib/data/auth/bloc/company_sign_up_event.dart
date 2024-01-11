@@ -4,10 +4,9 @@ part of 'company_sign_up_bloc.dart';
 sealed class CompanySignUpEvent {}
 
 class CompanySignUpButtonClicked extends CompanySignUpEvent {
-  final int idMeli;
-  final int sabt;
+  final CompanyDTO companyDTO;
 
-  CompanySignUpButtonClicked({required this.idMeli, required this.sabt});
+  CompanySignUpButtonClicked({required this.companyDTO});
 
 
 }

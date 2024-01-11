@@ -30,3 +30,9 @@ final class StudentLoginFailure extends StudentLoginState {
 
   StudentLoginFailure({required this.message});
 }
+
+final class StudentLoginWrongInfo extends StudentLoginState{
+  final String message;
+
+  StudentLoginWrongInfo({required this.message});
+}

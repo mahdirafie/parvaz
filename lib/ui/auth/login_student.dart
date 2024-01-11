@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parvaz_event/data/auth/bloc/student_login_bloc.dart';
 import 'package:parvaz_event/data/auth/repository/student_auth_repo.dart';
-import 'package:parvaz_event/data/student.dart';
+import 'package:parvaz_event/data/DTO/studentDTO.dart';
 import 'package:parvaz_event/ui/auth/signup_student.dart';
 import 'package:parvaz_event/ui/root/student_root.dart';
 
@@ -57,7 +57,12 @@ class _LoginStudentScreenState extends State<LoginStudentScreen> {
               content: Text(state.message),
               backgroundColor: Colors.red,
             ));
-          }
+          }else if (state is StudentLoginWrongInfo) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.message),
+            backgroundColor: Colors.red,
+          ));
+        }
         });
         return bloc;
       },
@@ -114,7 +119,7 @@ class _LoginStudentScreenState extends State<LoginStudentScreen> {
                               if (_formKey.currentState!.validate()) {
                                 BlocProvider.of<StudentLoginBloc>(context).add(
                                     StudentLoginButtonClicked(
-                                        codeMeli: int.parse(_idcode.text),
+                                        codeMeli: _idcode.text,
                                         password: _password.text));
                               }
                             },
