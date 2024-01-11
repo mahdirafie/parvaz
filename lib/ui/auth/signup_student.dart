@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parvaz_event/data/auth/bloc/student_sign_up_bloc.dart';
 import 'package:parvaz_event/data/auth/repository/student_auth_repo.dart';
+import 'package:parvaz_event/theme.dart';
 import 'package:parvaz_event/ui/root/student_root.dart';
 
 class SignUpStudentScreen extends StatefulWidget {
@@ -80,46 +81,82 @@ class _SignUpStudentScreenState extends State<SignUpStudentScreen> {
                     const SizedBox(
                       height: 24,
                     ),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: _idCode,
-                      decoration: const InputDecoration(hintText: 'کد ملی'),
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      validator: (value) {
-                        if (value != null && value.trim().isEmpty) {
-                          return 'کد ملی نمیتواند خالی باشد!';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      height: 60,
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        controller: _idCode,
+                        decoration: const InputDecoration(hintText: 'کد ملی'),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        validator: (value) {
+                          if (value != null && value.trim().isEmpty) {
+                            return 'کد ملی نمیتواند خالی باشد!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
-                    TextFormField(
-                      controller: _password,
-                      decoration: const InputDecoration(hintText: 'رمز عبور'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'رمز عبور را وارد کنید!';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        controller: _password,
+                        decoration: const InputDecoration(hintText: 'رمز عبور'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'رمز عبور را وارد کنید!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
-                    TextFormField(
-                      controller: _confirmPassword,
-                      decoration:
-                          const InputDecoration(hintText: 'تایید رمز عبور'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'تایید رمز عبور را وارد کنید!';
-                        } else if (_password.text != _confirmPassword.text) {
-                          return 'با رمز عبور وارد شده همخوانی ندارد!';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        controller: _confirmPassword,
+                        decoration:
+                            const InputDecoration(hintText: 'تایید رمز عبور'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'تایید رمز عبور را وارد کنید!';
+                          } else if (_password.text != _confirmPassword.text) {
+                            return 'با رمز عبور وارد شده همخوانی ندارد!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 12,

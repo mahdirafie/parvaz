@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:parvaz_event/theme.dart';
 import 'package:parvaz_event/ui/company/company_details.dart';
 
 class StudentNotificationScreen extends StatelessWidget {
@@ -9,7 +10,6 @@ class StudentNotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 231, 231, 231),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -25,7 +25,15 @@ class StudentNotificationScreen extends StatelessWidget {
           ),
           SliverList.builder(
             itemBuilder: (context, index) {
-              return requestWidget(context);
+              return Column(
+                children: [
+                  requestWidget(context),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  if (index != 9) const Divider()
+                ],
+              );
             },
             itemCount: 10,
           ),
@@ -43,22 +51,18 @@ class StudentNotificationScreen extends StatelessWidget {
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return CompanyDetailsScreen();
-        },));
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) {
+            return CompanyDetailsScreen();
+          },
+        ));
       },
       child: Container(
         padding: const EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),
         margin: const EdgeInsets.fromLTRB(25, 4, 25, 4),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
-          // boxShadow: const [
-          //   BoxShadow(color: Colors.grey, blurRadius: 50),
-          // ],
-        ),
+        decoration: BoxDecoration(),
         width: double.infinity,
-        height: 100,
+        height: 80,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -66,19 +70,22 @@ class StudentNotificationScreen extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(40)),
                 child: Image.asset(
                   'assets/images/company_profile.jpg',
-                  width: 80,
+                  width: 60,
                 )),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text('اسم کارخانه'),
+                const Text('اسم شرکت'),
                 const SizedBox(
                   height: 8,
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.location_on, color: Color.fromARGB(255, 255, 17, 0),),
+                    const Icon(
+                      Icons.location_on,
+                      color: Color.fromARGB(255, 255, 17, 0),
+                    ),
                     const SizedBox(
                       width: 4,
                     ),
@@ -99,11 +106,14 @@ class StudentNotificationScreen extends StatelessWidget {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.greenAccent,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.green)),
+                        color: theme.colorScheme.primary,
+                        border: Border.all(
+                            color: LightTheme.borderButtonColor, width: 2)),
                     width: 35,
-                    child: const Icon(Icons.check, color: Colors.green,),
+                    child: Icon(
+                      Icons.check,
+                      color: LightTheme.borderButtonColor,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -116,10 +126,12 @@ class StudentNotificationScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.redAccent.withOpacity(0.6),
-                        shape: BoxShape.circle,
                         border: Border.all(color: Colors.red)),
                     width: 35,
-                    child: const Icon(Icons.close, color: Colors.red,),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
                   ),
                 )
               ],

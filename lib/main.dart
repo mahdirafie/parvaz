@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     const TextStyle defaultTextStyle =
         TextStyle(fontFamily: 'IranYekan', color: Colors.black);
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         builder: (context, child) =>
             Directionality(textDirection: TextDirection.rtl, child: child!),
@@ -57,19 +57,24 @@ class MyApp extends StatelessWidget {
                 onBackground: LightTheme.onBackgroundColor),
             useMaterial3: true,
             inputDecorationTheme: InputDecorationTheme(
-                hintStyle: const TextStyle(color: LightTheme.secondaryTextColor),
+                hintStyle:
+                    const TextStyle(color: LightTheme.secondaryTextColor),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12))),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ButtonStyle(
-                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
+              overlayColor:
+                  MaterialStatePropertyAll(Color.fromARGB(255, 33, 147, 182)),
+              side: MaterialStatePropertyAll(BorderSide(
+                  color: LightTheme.borderButtonColor, width: 2)),
+              shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4))),
               backgroundColor:
                   const MaterialStatePropertyAll(LightTheme.primaryColor),
               foregroundColor:
                   const MaterialStatePropertyAll(LightTheme.onPrimaryColor),
             )),
-            dividerTheme: const DividerThemeData(
-                color: Colors.grey,space: 0)),
+            dividerTheme: DividerThemeData(color: LightTheme.primaryColor.withOpacity(0.5), space: 0)),
         home: const SplashScreen());
   }
 }

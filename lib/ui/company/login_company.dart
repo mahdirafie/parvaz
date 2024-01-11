@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parvaz_event/data/DTO/companyDTO.dart';
 import 'package:parvaz_event/data/auth/bloc/company_login_bloc.dart';
 import 'package:parvaz_event/data/auth/repository/company_auth_repo.dart';
+import 'package:parvaz_event/theme.dart';
 import 'package:parvaz_event/ui/root/company_root.dart';
 
 class LoginCompany extends StatefulWidget {
@@ -79,17 +80,31 @@ class _LoginCompanyState extends State<LoginCompany> {
                     const SizedBox(
                       height: 24,
                     ),
-                    TextFormField(
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      keyboardType: TextInputType.number,
-                      controller: _idcode,
-                      decoration: const InputDecoration(hintText: 'شناسه ملی'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'شناسه ملی نمیتواند خالی باشد!';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        keyboardType: TextInputType.number,
+                        controller: _idcode,
+                        decoration:
+                            const InputDecoration(hintText: 'شناسه ملی'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'شناسه ملی نمیتواند خالی باشد!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 12,

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parvaz_event/data/DTO/companyDTO.dart';
 import 'package:parvaz_event/data/auth/bloc/company_sign_up_bloc.dart';
 import 'package:parvaz_event/data/auth/repository/company_auth_repo.dart';
+import 'package:parvaz_event/theme.dart';
 import 'package:parvaz_event/ui/root/company_root.dart';
 
 class SignupCompany extends StatefulWidget {
@@ -100,8 +101,34 @@ class _SignupCompanyState extends State<SignupCompany> {
                       controller: _sabt,
                       decoration: const InputDecoration(hintText: 'کد ثبت'),
                       validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'کد ثبت را وارد کنید!';
+                          }
+                          return null;
+                        },
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      controller: _address,
+                      decoration: const InputDecoration(hintText: 'آدرس'),
+                      validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'کد ثبت را وارد کنید!';
+                          return 'آدرس';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      controller: _companyName,
+                      decoration: const InputDecoration(hintText: 'نام شرکت'),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'نام شرکت';
                         }
                         return null;
                       },

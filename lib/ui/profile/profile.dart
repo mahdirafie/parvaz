@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:parvaz_event/data/constants.dart';
 import 'package:parvaz_event/theme.dart';
+import 'package:parvaz_event/ui/common/common.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -32,13 +33,12 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(onPressed: () {
+      floatingActionButton: FloatingActionButton.extended(foregroundColor: theme.colorScheme.onPrimary,onPressed: () {
         
       }, label: const Text('ذخیره'), backgroundColor: theme.colorScheme.primary,),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       resizeToAvoidBottomInset: true,
-      backgroundColor: const Color.fromARGB(255, 231, 231, 231),
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: <Widget>[
@@ -46,17 +46,13 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
             textDirection: TextDirection.ltr,
             child: SliverAppBar(
               backgroundColor: theme.colorScheme.primary,
-              centerTitle: true,
-              leading: IconButton(
-                onPressed: () {},
-                icon: const Icon(CupertinoIcons.chevron_back),
-              ),
               stretch: true,
               onStretchTrigger: () {
                 return Future<void>.value();
               },
               expandedHeight: 300.0,
               flexibleSpace: FlexibleSpaceBar(
+                titlePadding: EdgeInsets.only(left: 25, bottom: 25),
                 title: Container(
                     decoration: BoxDecoration(boxShadow: const [
                       BoxShadow(color: Colors.white, blurRadius: 30)
@@ -87,6 +83,9 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(color: LightTheme.shadowColor, blurRadius: LightTheme.blurRadius)
+                      ],
                         color: theme.colorScheme.surface,
                         borderRadius: BorderRadius.circular(12)),
                     child: Column(
@@ -221,6 +220,9 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                   left: 25, right: 25, top: 12, bottom: 12),
               child: Container(
                 decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(color: LightTheme.shadowColor, blurRadius: LightTheme.blurRadius)
+                  ],
                     color: theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(12)),
                 child: Padding(
@@ -272,7 +274,6 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                           height: 12,
                         ),
                         Divider(
-                          color: theme.colorScheme.primary,
                         ),
                         const SizedBox(
                           height: 12,
@@ -293,7 +294,6 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                           height: 12,
                         ),
                         Divider(
-                          color: theme.colorScheme.primary,
                         ),
                         const SizedBox(
                           height: 12,
@@ -314,7 +314,6 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                           height: 12,
                         ),
                         Divider(
-                          color: theme.colorScheme.primary,
                         ),
                         const SizedBox(
                           height: 12,
@@ -335,7 +334,6 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                           height: 12,
                         ),
                         Divider(
-                          color: theme.colorScheme.primary,
                         ),
                         const SizedBox(
                           height: 12,
@@ -363,6 +361,9 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                   left: 25, right: 25, top: 12, bottom: 12),
               child: Container(
                   decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(color: LightTheme.shadowColor, blurRadius: LightTheme.blurRadius)
+                    ],
                       color: theme.colorScheme.surface,
                       borderRadius: BorderRadius.circular(12)),
                   child: Padding(
@@ -401,19 +402,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                                     debugPrint(studentSkills.toString());
                                   });
                                 },
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  margin: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                      color: Colors.purple,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  // alignment: Alignment.center,
-                                  child: Text(
-                                    item,
-                                    style: theme.textTheme.bodyLarge!.copyWith(
-                                        color: theme.colorScheme.onPrimary),
-                                  ),
-                                ),
+                                child: SkillContainer(skill: item)
                               );
                             }).toList()),
                         Text(
@@ -443,6 +432,9 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                   left: 25, right: 25, top: 12, bottom: 12),
               child: Container(
                 decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(color: LightTheme.shadowColor,blurRadius: LightTheme.blurRadius)
+                  ],
                     color: theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(12)),
                 child: Padding(
@@ -462,23 +454,26 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                                 onTap: () {
                                   _showDialog(context);
                                 },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: theme.colorScheme.surface,
-                                      boxShadow: [
-                                        const BoxShadow(
-                                            color: Colors.grey, blurRadius: 10)
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 12),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: theme.colorScheme.surface,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: LightTheme.shadowColor, blurRadius: LightTheme.blurRadius)
+                                        ],
+                                        borderRadius: BorderRadius.circular(12)),
+                                    height: 60,
+                                    width: double.infinity,
+                                    child: const Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(CupertinoIcons.pen),
+                                        SizedBox(width: 8,),
+                                        Text('نوشتن رزومه'),
                                       ],
-                                      borderRadius: BorderRadius.circular(12)),
-                                  height: 60,
-                                  width: double.infinity,
-                                  child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(CupertinoIcons.pen),
-                                      SizedBox(width: 8,),
-                                      Text('نوشتن رزومه'),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               )
@@ -494,7 +489,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                                       onPressed: () {
                                         _showDialog(context);
                                       },
-                                      child: const Text('ویرایش'))
+                                      child: const Text('ویرایش', textAlign: TextAlign.center,))
                                 ],
                               )
                       ],

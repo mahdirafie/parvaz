@@ -16,10 +16,10 @@ class CompanyDTO {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['company_name'] = this.companyName;
-    data['shenase_meli'] = this.shenaseMeli;
-    data['shomare_sabt'] = this.shomareSabt;
-    data['address'] = this.address;
+    data['company_name'] = companyName;
+    data['shenase_meli'] = shenaseMeli;
+    data['shomare_sabt'] = shomareSabt;
+    data['address'] = address;
     return data;
   }
 }

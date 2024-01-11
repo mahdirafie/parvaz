@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parvaz_event/data/auth/bloc/student_login_bloc.dart';
 import 'package:parvaz_event/data/auth/repository/student_auth_repo.dart';
 import 'package:parvaz_event/data/DTO/studentDTO.dart';
+import 'package:parvaz_event/theme.dart';
 import 'package:parvaz_event/ui/auth/signup_student.dart';
 import 'package:parvaz_event/ui/root/student_root.dart';
 
@@ -84,30 +85,54 @@ class _LoginStudentScreenState extends State<LoginStudentScreen> {
                     const SizedBox(
                       height: 24,
                     ),
-                    TextFormField(
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      keyboardType: TextInputType.number,
-                      controller: _idcode,
-                      decoration: const InputDecoration(hintText: 'کدملی'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'کدملی نمیتواند خالی باشد!';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        keyboardType: TextInputType.number,
+                        controller: _idcode,
+                        decoration: const InputDecoration(hintText: 'کدملی'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'کدملی نمیتواند خالی باشد!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
-                    TextFormField(
-                      controller: _password,
-                      decoration: const InputDecoration(hintText: 'رمز عبور'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'لطفا رمز عبور را وارد کنید!';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        controller: _password,
+                        decoration: const InputDecoration(hintText: 'رمز عبور'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'لطفا رمز عبور را وارد کنید!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 16,
@@ -125,7 +150,9 @@ class _LoginStudentScreenState extends State<LoginStudentScreen> {
                             },
                             child: state is! StudentLoginLoading
                                 ? const Text('ورود')
-                                : CircularProgressIndicator(color: theme.colorScheme.onPrimary,));
+                                : CircularProgressIndicator(
+                                    color: theme.colorScheme.onPrimary,
+                                  ));
                       },
                     ),
                     const SizedBox(
