@@ -13,7 +13,7 @@ class StudentSignUpBloc extends Bloc<StudentSignUpEvent, StudentSignUpState> {
       if (event is StudentSignUpButtonClicked) {
         try {
           emit(StudentSignUpLoading());
-          await authRepository.signUp(event.code_meli, event.daneshgah,
+          await authRepository.signUp(event.codeMeli, event.daneshgah,
               event.password);
         } on StudentSignUpSuccess catch (_) {
           emit(StudentSignUpSuccess(message: 'با موفقیت ثبت نام شدید!'));

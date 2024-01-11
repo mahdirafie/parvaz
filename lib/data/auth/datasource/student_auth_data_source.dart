@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:parvaz_event/data/exception.dart';
 
 abstract class IStudentAuthDataSource {
-  Future<void> signUp(int code_meli, String daneshgah, String password);
-  Future<void> login(int code_meli, String password);
+  Future<void> signUp(int codeMeli, String daneshgah, String password);
+  Future<void> login(int codeMeli, String password);
 }
 
 class StudentAuthRemoteDataSource implements IStudentAuthDataSource{
@@ -11,9 +11,9 @@ class StudentAuthRemoteDataSource implements IStudentAuthDataSource{
 
   StudentAuthRemoteDataSource({required this.httpClient});
   @override
-  Future<void> login(int code_meli, String password)async {
+  Future<void> login(int codeMeli, String password)async {
     try{
-      await httpClient.post('login',data: {'code_meli':code_meli,'password':password});
+      await httpClient.post('login',data: {'code_meli':codeMeli,'password':password});
     }on DioException catch (dioException) {
       if (dioException.response != null) {
         if (dioException.response!.statusCode == 403) {
@@ -28,9 +28,9 @@ class StudentAuthRemoteDataSource implements IStudentAuthDataSource{
   }
 
   @override
-  Future<void> signUp(int code_meli, String daneshgah, String password) async{
+  Future<void> signUp(int codeMeli, String daneshgah, String password) async{
     try{
-      await httpClient.post('signup', data: {'code_meli':code_meli, 'daneshgah':daneshgah, 'password':password});
+      await httpClient.post('signup', data: {'code_meli':codeMeli, 'daneshgah':daneshgah, 'password':password});
     }on DioException catch (dioException) {
       if (dioException.response != null) {
         if (dioException.response!.statusCode == 403) {

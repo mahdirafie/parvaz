@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parvaz_event/data/auth/bloc/company_login_bloc.dart';
-import 'package:parvaz_event/data/auth/bloc/company_sign_up_bloc.dart';
 import 'package:parvaz_event/data/auth/repository/company_auth_repo.dart';
 import 'package:parvaz_event/ui/root/company_root.dart';
 
@@ -17,6 +16,7 @@ class LoginCompany extends StatefulWidget {
 }
 
 class _LoginCompanyState extends State<LoginCompany> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _idcode = TextEditingController();
   final TextEditingController _password = TextEditingController();
   StreamSubscription<CompanyLoginState>? streamSubscription;
@@ -46,71 +46,98 @@ class _LoginCompanyState extends State<LoginCompany> {
               content: Text(state.message),
               backgroundColor: Colors.red,
             ));
-          } else {}
+          } else if (state is CompanyLoginUserNotfound) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ));
+          } else if (state is CompanyLoginWrongPassword) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ));
+          }
         });
         return bloc;
       },
       child: Scaffold(
-        body: Center(
-            child: SingleChildScrollView(
-          child: SizedBox(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/icon.png',
-                    width: 100,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  TextFormField(
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    keyboardType: TextInputType.number,
-                    controller: _idcode,
-                    decoration: const InputDecoration(hintText: 'شناسه ملی'),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  TextFormField(
-                    controller: _password,
-                    decoration: const InputDecoration(hintText: 'کد ثبت'),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  BlocBuilder<CompanyLoginBloc, CompanyLoginState>(
-                      builder: (BuildContext context, CompanyLoginState state) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        BlocProvider.of<CompanyLoginBloc>(context).add(
-                            CompanyLoginButtonClicked(
-                                idMeli: int.parse(_idcode.text),
-                                sabt: int.parse(_password.text)));
+        body: Form(
+          key: _formKey,
+          child: Center(
+              child: SingleChildScrollView(
+            child: SizedBox(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/icon.png',
+                      width: 100,
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    TextFormField(
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      keyboardType: TextInputType.number,
+                      controller: _idcode,
+                      decoration: const InputDecoration(hintText: 'شناسه ملی'),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'شناسه ملی نمیتواند خالی باشد!';
+                        }
+                        return null;
                       },
-                      child: state != CompanyLoginLoading
-                          ? const Text('ورود')
-                          : CircularProgressIndicator(
-                              color: theme.colorScheme.onPrimaryContainer,
-                            ),
-                    );
-                  }),
-                  const SizedBox(
-                    height: 2,
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        widget.loginPage(false);
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      controller: _password,
+                      decoration: const InputDecoration(hintText: 'کد ثبت'),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'کد ثبت را وارد کنید!';
+                        }
+                        return null;
                       },
-                      child: const Text('آیا حسابی ندارید؟'))
-                ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    BlocBuilder<CompanyLoginBloc, CompanyLoginState>(builder:
+                        (BuildContext context, CompanyLoginState state) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            BlocProvider.of<CompanyLoginBloc>(context).add(
+                                CompanyLoginButtonClicked(
+                                    idMeli: int.parse(_idcode.text),
+                                    sabt: int.parse(_password.text)));
+                          }
+                        },
+                        child: state is! CompanyLoginLoading
+                            ? const Text('ورود')
+                            : CircularProgressIndicator(
+                                color: theme.colorScheme.onPrimary,
+                              ),
+                      );
+                    }),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          widget.loginPage(false);
+                        },
+                        child: const Text('آیا حسابی ندارید؟'))
+                  ],
+                ),
               ),
             ),
-          ),
-        )),
+          )),
+        ),
       ),
     );
   }

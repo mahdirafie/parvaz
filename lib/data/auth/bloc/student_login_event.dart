@@ -4,10 +4,10 @@ part of 'student_login_bloc.dart';
 sealed class StudentLoginEvent {}
 
 class StudentLoginButtonClicked extends StudentLoginEvent {
-  final int code_meli;
+  final int codeMeli;
   final String password;
 
-  StudentLoginButtonClicked({required this.code_meli, required this.password});
+  StudentLoginButtonClicked({required this.codeMeli, required this.password});
 
 
 }

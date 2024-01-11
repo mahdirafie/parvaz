@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:parvaz_event/ui/auth/login_student.dart';
-import 'package:parvaz_event/ui/auth/student_contact_info.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parvaz_event/data/auth/bloc/student_sign_up_bloc.dart';
+import 'package:parvaz_event/data/auth/repository/student_auth_repo.dart';
+import 'package:parvaz_event/ui/root/student_root.dart';
 
 class SignUpStudentScreen extends StatefulWidget {
   const SignUpStudentScreen({super.key, required this.loginPage});
@@ -13,85 +17,153 @@ class SignUpStudentScreen extends StatefulWidget {
 }
 
 class _SignUpStudentScreenState extends State<SignUpStudentScreen> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _idCode = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
+  StreamSubscription<StudentSignUpState>? subscription;
 
   @override
   void dispose() {
     _idCode.dispose();
     _password.dispose();
     _confirmPassword.dispose();
+    subscription?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: SingleChildScrollView(
+    final theme = Theme.of(context);
+    return BlocProvider<StudentSignUpBloc>(
+      create: (BuildContext context) {
+        final bloc = StudentSignUpBloc(studentAuthRepository);
+        subscription = bloc.stream.listen((state) {
+          if (state is StudentSignUpSuccess) {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const RootScreen(),
+            ));
+          } else if (state is StudentSignUpUserAlreadyExists) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ));
+          } else if (state is StudentSignUpFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ));
+          }
+        });
+        return bloc;
+      },
+      child: Scaffold(
+        body: Form(
+          key: _formKey,
+          child: Center(
+              child: SingleChildScrollView(
             child: SizedBox(
-                    child: Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/icon.png',
-                  width: 100,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                TextFormField(
-                  controller: _idCode,
-                  decoration: const InputDecoration(hintText: 'کد ملی'),
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                TextFormField(
-                  controller: _password,
-                  decoration: const InputDecoration(hintText: 'رمز عبور'),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                TextFormField(
-                  controller: _confirmPassword,
-                  decoration: const InputDecoration(hintText: 'تایید رمز عبور'),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(child: dropDown(context)),
+                    Image.asset(
+                      'assets/images/icon.png',
+                      width: 100,
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      controller: _idCode,
+                      decoration: const InputDecoration(hintText: 'کد ملی'),
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      validator: (value) {
+                        if (value != null && value.trim().isEmpty) {
+                          return 'کد ملی نمیتواند خالی باشد!';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      controller: _password,
+                      decoration: const InputDecoration(hintText: 'رمز عبور'),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'رمز عبور را وارد کنید!';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    TextFormField(
+                      controller: _confirmPassword,
+                      decoration:
+                          const InputDecoration(hintText: 'تایید رمز عبور'),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'تایید رمز عبور را وارد کنید!';
+                        } else if (_password.text != _confirmPassword.text) {
+                          return 'با رمز عبور وارد شده همخوانی ندارد!';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(child: dropDown(context)),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    BlocBuilder<StudentSignUpBloc, StudentSignUpState>(
+                      builder:
+                          (BuildContext context, StudentSignUpState state) {
+                        return ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RootScreen(),));
+                              // if (_formKey.currentState!.validate()) {
+                              //   BlocProvider.of<StudentSignUpBloc>(context).add(
+                              //       StudentSignUpButtonClicked(
+                              //           codeMeli: int.parse(_idCode.text),
+                              //           daneshgah: selectedUniversity,
+                              //           password: _password.text));
+                              // }
+                            },
+                            child: state is! StudentSignUpLoading
+                                ? const Text('ثبت نام')
+                                : CircularProgressIndicator(
+                                    color: theme.colorScheme.onPrimary,
+                                  ));
+                      },
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          widget.loginPage(true);
+                        },
+                        child: const Text('آیا در حال حاضر حسابی دارید؟'))
                   ],
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-                ElevatedButton(onPressed: () {
-                     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return const GetStudentContantInfoScreen();
-                },));
-                }, child: const Text('ثبت نام')),
-                const SizedBox(
-                  height: 2,
-                ),
-                TextButton(
-                    onPressed: () {
-                      widget.loginPage(true);
-                    },
-                    child: const Text('آیا در حال حاضر حسابی دارید؟'))
-              ],
+              ),
             ),
-                    ),
-                  ),
           )),
+        ),
+      ),
     );
   }
 

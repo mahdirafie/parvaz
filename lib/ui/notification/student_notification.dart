@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:parvaz_event/ui/company/company_details.dart';
 
 class StudentNotificationScreen extends StatelessWidget {
   const StudentNotificationScreen({super.key});
@@ -42,7 +43,9 @@ class StudentNotificationScreen extends StatelessWidget {
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {
-        //TODO: navigate to the company details
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return CompanyDetailsScreen();
+        },));
       },
       child: Container(
         padding: const EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),

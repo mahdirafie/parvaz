@@ -14,7 +14,7 @@ class StudentLoginBloc extends Bloc<StudentLoginEvent, StudentLoginState> {
       if (event is StudentLoginButtonClicked) {
         try {
           emit(StudentLoginLoading());
-          await authRepository.login(event.code_meli, event.password);
+          await authRepository.login(event.codeMeli, event.password);
         } on StudentLoginSuccess catch (_) {
           emit(StudentLoginSuccess(message: 'ورود با موفقیت انجام شد!'));
         } on LoginUserNotFoundException catch (_) {
