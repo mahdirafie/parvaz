@@ -26,7 +26,7 @@ class _CompanyHomeState extends State<CompanyHome> {
     final theme = Theme.of(context);
     return BlocProvider(
       create: (BuildContext context) {
-        final bloc = GetStudentBloc(allStudentRepository);
+        final bloc = GetStudentBloc(allStudentRepository)..add(CompanyLayoutScreenStarted());
         return bloc;
       },
       child: Scaffold(
@@ -61,7 +61,6 @@ class _CompanyHomeState extends State<CompanyHome> {
         ),
         body: BlocBuilder<GetStudentBloc,StudentState>(
           builder: (BuildContext context, StudentState state) {
-            BlocProvider.of<GetStudentBloc>(context).add(CompanyLayoutScreenStarted());
             if(state is StudentGetSuccess){
               return Padding(
                 padding: const EdgeInsets.all(8.0),
