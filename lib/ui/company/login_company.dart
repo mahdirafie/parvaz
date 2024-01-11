@@ -109,15 +109,26 @@ class _LoginCompanyState extends State<LoginCompany> {
                     const SizedBox(
                       height: 12,
                     ),
-                    TextFormField(
-                      controller: _sabt,
-                      decoration: const InputDecoration(hintText: 'کد ثبت'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'کد ثبت را وارد کنید!';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        controller: _sabt,
+                        decoration: const InputDecoration(hintText: 'کد ثبت'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'کد ثبت را وارد کنید!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 16,
@@ -131,9 +142,7 @@ class _LoginCompanyState extends State<LoginCompany> {
                               shomareSabt: _sabt.text);
                           if (_formKey.currentState!.validate()) {
                             BlocProvider.of<CompanyLoginBloc>(context).add(
-                                CompanyLoginButtonClicked(
-                             companyDTO: company
-                                 ));
+                                CompanyLoginButtonClicked(companyDTO: company));
                           }
                         },
                         child: state is! CompanyLoginLoading

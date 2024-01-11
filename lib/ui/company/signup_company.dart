@@ -82,82 +82,103 @@ class _SignupCompanyState extends State<SignupCompany> {
                     const SizedBox(
                       height: 24,
                     ),
-                    TextFormField(
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      keyboardType: TextInputType.number,
-                      controller: _idcode,
-                      decoration: const InputDecoration(hintText: 'شناسه ملی'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'شناسه ملی نمیتواند خالی باشد!';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        keyboardType: TextInputType.number,
+                        controller: _idcode,
+                        decoration:
+                            const InputDecoration(hintText: 'شناسه ملی'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'شناسه ملی نمیتواند خالی باشد!';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
-                    TextFormField(
-                      controller: _sabt,
-                      decoration: const InputDecoration(hintText: 'کد ثبت'),
-                      validator: (value) {
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        controller: _sabt,
+                        decoration: const InputDecoration(hintText: 'کد ثبت'),
+                        validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'کد ثبت را وارد کنید!';
                           }
                           return null;
                         },
+                      ),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
-                    TextFormField(
-                      controller: _address,
-                      decoration: const InputDecoration(hintText: 'آدرس'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'آدرس';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        controller: _address,
+                        decoration: const InputDecoration(hintText: 'آدرس'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'آدرس';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
-                    TextFormField(
-                      controller: _companyName,
-                      decoration: const InputDecoration(hintText: 'نام شرکت'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'نام شرکت';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    TextFormField(
-                      controller: _address,
-                      decoration: const InputDecoration(hintText: 'آدرس'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'آدرس';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    TextFormField(
-                      controller: _companyName,
-                      decoration: const InputDecoration(hintText: 'نام شرکت'),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'نام شرکت';
-                        }
-                        return null;
-                      },
+                    Container(
+                      decoration: BoxDecoration(
+                          color: theme.colorScheme.background,
+                          boxShadow: [
+                            BoxShadow(
+                              color: LightTheme.shadowColor,
+                              blurRadius: LightTheme.blurRadius,
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12)),
+                      child: TextFormField(
+                        controller: _companyName,
+                        decoration: const InputDecoration(hintText: 'نام شرکت'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'نام شرکت';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 16,
