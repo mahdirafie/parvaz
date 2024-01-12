@@ -1,24 +1,24 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:parvaz_event/data/DTO/studentDTO.dart';
 import 'package:parvaz_event/data/exception.dart';
 
-abstract class IStudentDataSource{
+abstract class IStudentDataSource {
   Future<List<StudentDTO>> getAllStudent();
+
+  Future<StudentDTO> studentProfile(int meli);
 }
 
-class StudentRemoteDataSource implements IStudentDataSource{
+class StudentRemoteDataSource implements IStudentDataSource {
   final Dio httpClient;
 
   StudentRemoteDataSource({required this.httpClient});
 
   @override
-  Future<List<StudentDTO>> getAllStudent()async {
+  Future<List<StudentDTO>> getAllStudent() async {
     try {
       final response = await httpClient.get('/user/all');
       List<StudentDTO> students = [];
-      for(var item in response.data) {
+      for (var item in response.data) {
         students.add(StudentDTO.fromJson(item));
       }
       return students;
@@ -30,10 +30,34 @@ class StudentRemoteDataSource implements IStudentDataSource{
           throw GetAllStudentServer();
         }
       }
-    }catch (_) {
+    } catch (_) {
       throw AppException();
     }
     List<StudentDTO> students = [];
     return students;
   }
+
+  @override
+  Future<StudentDTO> studentProfile(int meli) async{
+    try{
+      final response = await httpClient.post('/user/profile',data: {'code_meli':meli.toString()});
+      print(StudentDTO.fromJson(response.data).daneshgah);
+      return (StudentDTO.fromJson(response.data));
+    }on DioException catch (dioException){
+      if(dioException.response != null){
+        if (dioException.response!.statusCode == 404){
+          throw ProfileUserNotFound();
+        } else if (dioException.response!.statusCode == 400){
+          throw ProfileBadRequest();
+        }else if (dioException.response!.statusCode == 500){
+          throw GetAllStudentServer();
+        }
+      }
+    }catch (_) {
+      throw AppException();
+    }
+    throw UnimplementedError();
+  }
+
+  
 }

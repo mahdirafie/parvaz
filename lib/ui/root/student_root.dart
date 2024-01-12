@@ -4,13 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:parvaz_event/ui/notification/student_notification.dart';
 import 'package:parvaz_event/ui/profile/profile.dart';
+import 'package:parvaz_event/ui/skill_page.dart';
 
 
 const int profileIndex = 0;
 const int notifIndex = 1;
+const int skillIndex = 2;
 
 class RootScreen extends StatefulWidget {
-  const RootScreen({Key? key}) : super(key: key);
+  const RootScreen({Key? key, required this.meli}) : super(key: key);
+  final int meli;
 
   @override
   State<RootScreen> createState() => _RootScreenState();
@@ -22,10 +25,12 @@ class _RootScreenState extends State<RootScreen> {
 
   final GlobalKey<NavigatorState> _profileKey = GlobalKey();
   final GlobalKey<NavigatorState> _notifKey = GlobalKey();
+  final GlobalKey<NavigatorState> _skillKey = GlobalKey();
 
   late final map = {
     profileIndex: _profileKey,
     notifIndex: _notifKey,
+    skillIndex: _skillKey,
   };
 
   Future<bool> _onWillPop() async {
@@ -52,8 +57,9 @@ class _RootScreenState extends State<RootScreen> {
           body: IndexedStack(
             index: selectedScreenIndex,
             children: [
-              _navigator(_profileKey, profileIndex, const StudentProfileScreen()),
+              _navigator(_profileKey, profileIndex, StudentProfileScreen(meli: widget.meli,)),
               _navigator(_notifKey, notifIndex, const StudentNotificationScreen()),
+              _navigator(_skillKey, skillIndex, const SkillPage()),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -68,6 +74,8 @@ class _RootScreenState extends State<RootScreen> {
                     ],
                   ),
                   label: 'اعلانات'),
+              BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.hammer), label: 'مهارت'),
             ],
             currentIndex: selectedScreenIndex,
             onTap: (selectedIndex) {

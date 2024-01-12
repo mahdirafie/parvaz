@@ -10,6 +10,7 @@ final StudentRemoteRepository allStudentRepository = StudentRemoteRepository(
 
 abstract class IStudentRepository{
   Future<List<StudentDTO>> getAllStudent();
+  Future<StudentDTO> studentProfile(int meli);
 }
 
 class StudentRemoteRepository implements IStudentRepository{
@@ -20,6 +21,11 @@ class StudentRemoteRepository implements IStudentRepository{
   @override
   Future<List<StudentDTO>> getAllStudent() {
     return dataSource.getAllStudent();
+  }
+
+  @override
+  Future<StudentDTO> studentProfile(int meli) {
+    return dataSource.studentProfile(meli);
   }
 
 }
