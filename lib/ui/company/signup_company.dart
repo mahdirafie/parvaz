@@ -48,7 +48,7 @@ class _SignupCompanyState extends State<SignupCompany> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const CompanyRootScreen(),
+                  builder: (context) => CompanyRootScreen(company: CompanyDTO(address: _address.text, companyName: _companyName.text, shenaseMeli: _idcode.text, shomareSabt: _sabt.text),),
                 ));
           } else if (state is CompanySignUpFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(

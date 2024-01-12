@@ -5,7 +5,7 @@ import 'package:parvaz_event/data/exception.dart';
 abstract class ICompanyAuthDataSource {
   Future<void> signUp(CompanyDTO companyDTO);
 
-  Future<void> login(CompanyDTO companyDTO);
+  Future<CompanyDTO> login(CompanyDTO companyDTO);
 }
 
 class CompanyAuthRemoteDataSource implements ICompanyAuthDataSource {
@@ -14,13 +14,14 @@ class CompanyAuthRemoteDataSource implements ICompanyAuthDataSource {
   CompanyAuthRemoteDataSource({required this.httpClient});
 
   @override
-  Future<void> login(CompanyDTO companyDTO) async {
+  Future<CompanyDTO> login(CompanyDTO companyDTO) async {
     try {
-      await httpClient.post('/company/login',
+      final response = await httpClient.post('/company/login',
           data: {
             'shenase_meli': companyDTO.shenaseMeli,
             'shomare_sabt': companyDTO.shomareSabt,
           });
+      return CompanyDTO.fromJson(response.data['company']);
     } on DioException catch (dioException) {
       if (dioException.response != null) {
         if (dioException.response!.statusCode == 403) {
@@ -32,6 +33,7 @@ class CompanyAuthRemoteDataSource implements ICompanyAuthDataSource {
     } catch (_) {
       throw AppException();
     }
+    return CompanyDTO();
   }
 
   @override

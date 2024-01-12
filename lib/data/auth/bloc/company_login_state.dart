@@ -8,9 +8,9 @@ final class CompanyLoginInitial extends CompanyLoginState {}
 final class CompanyLoginLoading extends CompanyLoginState {}
 
 final class CompanyLoginSuccess extends CompanyLoginState {
-  final String message;
+  final CompanyDTO company;
 
-  CompanyLoginSuccess({required this.message});
+  CompanyLoginSuccess({required this.company});
 }
 
 final class CompanyLoginUserNotfound extends CompanyLoginState {

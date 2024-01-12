@@ -35,7 +35,7 @@ class CompanyDetailsScreen extends StatelessWidget {
                       style: theme.textTheme.titleLarge,
                     )),
                 background: Image.asset(
-                  'assets/images/company_profile.jpg',
+                  'assets/images/company_profile.png',
                   fit: BoxFit.cover,
                 ),
                 stretchModes: const [

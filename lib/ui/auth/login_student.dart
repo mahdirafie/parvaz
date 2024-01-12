@@ -5,9 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parvaz_event/data/auth/bloc/student_login_bloc.dart';
 import 'package:parvaz_event/data/auth/repository/student_auth_repo.dart';
-import 'package:parvaz_event/data/DTO/studentDTO.dart';
 import 'package:parvaz_event/theme.dart';
-import 'package:parvaz_event/ui/auth/signup_student.dart';
 import 'package:parvaz_event/ui/root/student_root.dart';
 
 class LoginStudentScreen extends StatefulWidget {

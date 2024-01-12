@@ -41,7 +41,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
     StudentDTO student;
     final theme = Theme.of(context);
     return BlocProvider(create: (context) {
-      final bloc = ProfileStudentBloc(allStudentRepository)
+      final bloc = ProfileStudentBloc(studentRepository)
         ..add(StudentProfileScreenStarted(meli: widget.meli));
       return bloc;
     },
@@ -618,8 +618,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
   }
 
   Widget dropDownSearch(BuildContext context) {
-
-    final TextEditingController _controller = TextEditingController();
+    final TextEditingController controller = TextEditingController();
     return DropdownButtonHideUnderline(
       child: DropdownButton2<String>(
         isExpanded: true,
@@ -666,7 +665,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
           height: 40,
         ),
         dropdownSearchData: DropdownSearchData(
-          searchController: _controller,
+          searchController: controller,
           searchInnerWidgetHeight: 50,
           searchInnerWidget: Container(
             height: 50,
@@ -679,7 +678,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
             child: TextFormField(
               expands: true,
               maxLines: null,
-              controller: _controller,
+              controller: controller,
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding: const EdgeInsets.symmetric(
@@ -705,7 +704,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
         //This to clear the search value when you close the menu
         onMenuStateChange: (isOpen) {
           if (!isOpen) {
-            _controller.clear();
+            controller.clear();
           }
         },
       ),

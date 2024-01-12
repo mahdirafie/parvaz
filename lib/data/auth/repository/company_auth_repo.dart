@@ -8,7 +8,7 @@ final CompanyAuthRemoteRepository companyAuthRepository = CompanyAuthRemoteRepos
 
 abstract class ICompanyAuthRepository {
   Future<void> signUp(CompanyDTO companyDTO);
-  Future<void> login(CompanyDTO companyDTO);
+  Future<CompanyDTO> login(CompanyDTO companyDTO);
 }
 
 class CompanyAuthRemoteRepository implements ICompanyAuthRepository {
@@ -16,7 +16,7 @@ class CompanyAuthRemoteRepository implements ICompanyAuthRepository {
 
   CompanyAuthRemoteRepository({required this.dataSource});
   @override
-  Future<void> login(CompanyDTO companyDTO) {
+  Future<CompanyDTO> login(CompanyDTO companyDTO) {
     return dataSource.login(companyDTO);
   }
 

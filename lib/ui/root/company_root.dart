@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:parvaz_event/ui/company/company_layout.dart';
-import 'package:parvaz_event/ui/company/confirmed_screen.dart';
+import 'package:parvaz_event/data/DTO/companyDTO.dart';
+import 'package:parvaz_event/ui/company/company_profile.dart';
+import 'package:parvaz_event/ui/company/company_students.dart';
 
-const int explore = 0;
-const int waiting = 1;
-const int confirmed = 2;
+const int search = 0;
+const int profile = 1;
 
 class CompanyRootScreen extends StatefulWidget {
-  const CompanyRootScreen({Key? key}) : super(key: key);
+  const CompanyRootScreen({Key? key, required this.company}) : super(key: key);
+  final CompanyDTO company;
 
   @override
   State<CompanyRootScreen> createState() => _CompanyRootScreenState();
 }
 
 class _CompanyRootScreenState extends State<CompanyRootScreen> {
-  int selectedScreenIndex = explore;
+  int selectedScreenIndex = search;
   final List<int> _history = [];
 
-  final GlobalKey<NavigatorState> _exploreKey = GlobalKey();
-  final GlobalKey<NavigatorState> _waitingKey = GlobalKey();
-  final GlobalKey<NavigatorState> _confirmedKey = GlobalKey();
+  final GlobalKey<NavigatorState> _searchKey = GlobalKey();
+  final GlobalKey<NavigatorState> _profileKey = GlobalKey();
 
   late final map = {
-    explore: _exploreKey,
-    waiting: _waitingKey,
-    confirmed: _confirmedKey,
+    search: _searchKey,
+    profile: _profileKey,
   };
 
   Future<bool> _onWillPop() async {
@@ -54,21 +53,11 @@ class _CompanyRootScreenState extends State<CompanyRootScreen> {
             index: selectedScreenIndex,
             children: [
               _navigator(
-                  _exploreKey,
-                  explore,
-                  const CompanyHome(
-                    waiting: false,
-                    confirmed: false,
-                  )),
-              _navigator(_waitingKey, waiting,
-                  const CompanyHome(waiting: true, confirmed: false)),
-              _navigator(
-                  _confirmedKey,
-                  confirmed,
-                  const CompanyHome(
-                    waiting: false,
-                    confirmed: true,
-                  )),
+                  _searchKey,
+                  search,
+                  CompanyStudentsScreen(company: widget.company,)),
+              _navigator(_profileKey, profile,
+                  CompanyProfile(company: widget.company,)),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(
@@ -79,13 +68,11 @@ class _CompanyRootScreenState extends State<CompanyRootScreen> {
                   icon: Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      Icon(CupertinoIcons.alarm),
+                      Icon(Icons.note),
                     ],
                   ),
-                  label: 'صف انتظار'),
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.check_mark_circled),
-                  label: 'تایید شده'),
+                  label: 'پروفایل'),
+
             ],
             currentIndex: selectedScreenIndex,
             onTap: (selectedIndex) {

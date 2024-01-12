@@ -45,3 +45,12 @@ class ProfileBadRequest implements Exception{
 class NotFound implements Exception{
   final String message = 'یافت نشد';
 }
+
+
+class CooperationRequestAlreadyMadeException implements Exception {
+  final String message = 'دعوت به همکاری قبلا داده شده است!';
+}
+
+class SaveForCooperationRequestAlreadyMadeException implements Exception {
+  final String message = 'قبلا ذخیره شده است!';
+}

@@ -12,7 +12,7 @@ class SkillContainer extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       margin: const EdgeInsets.all(2),
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 24, 80, 126), borderRadius: BorderRadius.circular(12)),
+          color: theme.colorScheme.secondary, borderRadius: BorderRadius.circular(12)),
       // alignment: Alignment.center,
       child: Text(
         skill,

@@ -49,6 +49,8 @@ class MyApp extends StatelessWidget {
             colorScheme: const ColorScheme.light(
                 primary: LightTheme.primaryColor,
                 onPrimary: LightTheme.onPrimaryColor,
+                secondary: LightTheme.secondaryColor,
+                onSecondary: LightTheme.onSecondaryColor,
                 primaryContainer: LightTheme.primaryVariantColor,
                 onPrimaryContainer: LightTheme.onPrimaryVariantColor,
                 surface: LightTheme.surfaceColor,
@@ -64,8 +66,8 @@ class MyApp extends StatelessWidget {
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ButtonStyle(
               overlayColor:
-                  MaterialStatePropertyAll(Color.fromARGB(255, 33, 147, 182)),
-              side: MaterialStatePropertyAll(BorderSide(
+                  const MaterialStatePropertyAll(Color.fromARGB(255, 33, 147, 182)),
+              side: const MaterialStatePropertyAll(BorderSide(
                   color: LightTheme.borderButtonColor, width: 2)),
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4))),

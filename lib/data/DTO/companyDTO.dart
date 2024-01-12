@@ -1,3 +1,4 @@
+
 class CompanyDTO {
   String? companyName;
   String? shenaseMeli;
@@ -15,7 +16,7 @@ class CompanyDTO {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['company_name'] = companyName;
     data['shenase_meli'] = shenaseMeli;
     data['shomare_sabt'] = shomareSabt;

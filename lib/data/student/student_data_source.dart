@@ -33,8 +33,7 @@ class StudentRemoteDataSource implements IStudentDataSource {
     } catch (_) {
       throw AppException();
     }
-    List<StudentDTO> students = [];
-    return students;
+    return [];
   }
 
   @override

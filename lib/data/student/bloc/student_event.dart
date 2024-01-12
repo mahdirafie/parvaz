@@ -1,8 +1,8 @@
 part of 'student_bloc.dart';
 
 @immutable
-sealed class StudentEvent {}
+sealed class StudentGetEvent {}
 
-class CompanyLayoutScreenStarted implements StudentEvent{
+class CompanyLayoutScreenStarted implements StudentGetEvent{
 
 }

@@ -42,7 +42,7 @@ class _LoginCompanyState extends State<LoginCompany> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const CompanyRootScreen()));
+                    builder: (context) => CompanyRootScreen(company: state.company)));
           } else if (state is CompanyLoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(state.message),

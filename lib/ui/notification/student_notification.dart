@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:parvaz_event/theme.dart';
 import 'package:parvaz_event/ui/company/company_details.dart';
@@ -28,7 +27,7 @@ class StudentNotificationScreen extends StatelessWidget {
               return Column(
                 children: [
                   requestWidget(context),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   if (index != 9) const Divider()
@@ -53,14 +52,14 @@ class StudentNotificationScreen extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) {
-            return CompanyDetailsScreen();
+            return const CompanyDetailsScreen();
           },
         ));
       },
       child: Container(
         padding: const EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 8),
         margin: const EdgeInsets.fromLTRB(25, 4, 25, 4),
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         width: double.infinity,
         height: 80,
         child: Row(
@@ -110,7 +109,7 @@ class StudentNotificationScreen extends StatelessWidget {
                         border: Border.all(
                             color: LightTheme.borderButtonColor, width: 2)),
                     width: 35,
-                    child: Icon(
+                    child: const Icon(
                       Icons.check,
                       color: LightTheme.borderButtonColor,
                     ),

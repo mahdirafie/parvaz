@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class LightTheme {
   static const Color primaryColor = Color.fromARGB(255, 54, 173, 209);
   static const Color onPrimaryColor = Colors.white;
+  static const Color secondaryColor = Color.fromARGB(255, 25, 83, 131);
+  static const Color onSecondaryColor = Color.fromARGB(255, 255, 255, 255);
   static const Color primaryVariantColor = Colors.transparent;
   static const Color onPrimaryVariantColor = Colors.black;
   static const Color surfaceColor = Colors.white;

@@ -42,7 +42,7 @@ class StudentDTO {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['code_meli'] = codeMeli;
     data['nam'] = nam;
     data['nam_khanevadegi'] = namKhanevadegi;

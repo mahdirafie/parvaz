@@ -4,7 +4,7 @@ import 'package:parvaz_event/data/DTO/studentDTO.dart';
 import 'package:parvaz_event/data/httpclient.dart';
 import 'package:parvaz_event/data/student/student_data_source.dart';
 
-final StudentRemoteRepository allStudentRepository = StudentRemoteRepository(
+final StudentRemoteRepository studentRepository = StudentRemoteRepository(
   dataSource: StudentRemoteDataSource(httpClient: httpClient)
 );
 

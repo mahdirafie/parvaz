@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:parvaz_event/data/auth/repository/student_auth_repo.dart';
 import 'package:parvaz_event/data/exception.dart';
