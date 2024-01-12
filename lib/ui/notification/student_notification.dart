@@ -1,58 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parvaz_event/data/DTO/companyDTO.dart';
+import 'package:parvaz_event/data/notification/bloc/notification_bloc.dart';
+import 'package:parvaz_event/data/notification/notification_repo.dart';
 import 'package:parvaz_event/theme.dart';
 import 'package:parvaz_event/ui/company/company_details.dart';
 
 class StudentNotificationScreen extends StatelessWidget {
-  const StudentNotificationScreen({super.key});
+  const StudentNotificationScreen({super.key, required this.meli});
+
+  final int meli;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            title: const Text('درخواست ها'),
-            centerTitle: true,
-            backgroundColor: theme.colorScheme.primary,
+    return BlocProvider(
+      create: (context) {
+        final bloc = NotificationBloc(getAllNotification)
+          ..add(GetAllNotification(meli: meli));
+        return bloc;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("درخواست ها"),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              BlocBuilder<NotificationBloc, NotificationState>(
+                  builder: (context, NotificationState state) {
+                if (state is GetAllNotificationSuccess) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          requestWidget(context,state.companys[index]),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
+                      );
+                    },
+                    itemCount: state.companys.length,
+                  );
+                }
+                else if(state is GetAllNotificationLoading){
+                  return const Center(child: CircularProgressIndicator(),);
+                }
+                else {
+                  throw();
+                }
+              }),
+              SizedBox(
+                height: 1000,
+              )
+            ],
           ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 16,
-            ),
-          ),
-          SliverList.builder(
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  requestWidget(context),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  if (index != 9) const Divider()
-                ],
-              );
-            },
-            itemCount: 10,
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 30,
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
 
-  Widget requestWidget(BuildContext context) {
+  Widget requestWidget(BuildContext context, CompanyDTO company) {
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) {
-            return const CompanyDetailsScreen();
+            return CompanyDetailsScreen(company: company,);
           },
         ));
       },
@@ -75,7 +91,7 @@ class StudentNotificationScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text('اسم شرکت'),
+                Text(company.companyName??""),
                 const SizedBox(
                   height: 8,
                 ),
@@ -89,7 +105,7 @@ class StudentNotificationScreen extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      'همدان',
+                      company.address??"",
                       style: theme.textTheme.bodyMedium!
                           .copyWith(color: theme.colorScheme.primary),
                     )

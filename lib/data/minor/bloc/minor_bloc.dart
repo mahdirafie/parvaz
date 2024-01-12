@@ -18,6 +18,14 @@ class MinorBloc extends Bloc<MinorEvent, MinorState> {
         }on NotFound catch (_){
           emit(PopularSkillFailed(message: "مشکلی وجود دارد"));
         }
+      }else if(event is SetSkillStudent){
+        try{
+          emit(SetSkillLoading());
+          await minor.setSkill(event.codeMeli, event.skill);
+          emit(SetSkillSuccess());
+        }on NotFound catch (_){
+          emit(SetSkillFailed(message: "مشکلی وجود دارد"));
+        }
       }
     });
   }

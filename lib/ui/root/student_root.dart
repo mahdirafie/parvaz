@@ -58,7 +58,7 @@ class _RootScreenState extends State<RootScreen> {
             index: selectedScreenIndex,
             children: [
               _navigator(_profileKey, profileIndex, StudentProfileScreen(meli: widget.meli,)),
-              _navigator(_notifKey, notifIndex, const StudentNotificationScreen()),
+              _navigator(_notifKey, notifIndex, StudentNotificationScreen(meli: widget.meli,)),
               _navigator(_skillKey, skillIndex, const SkillPage()),
             ],
           ),

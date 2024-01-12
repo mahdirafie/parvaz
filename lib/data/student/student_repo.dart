@@ -11,6 +11,7 @@ final StudentRemoteRepository studentRepository = StudentRemoteRepository(
 abstract class IStudentRepository{
   Future<List<StudentDTO>> getAllStudent();
   Future<StudentDTO> studentProfile(int meli);
+  Future<void> studentChange(String resume);
 }
 
 class StudentRemoteRepository implements IStudentRepository{
@@ -26,6 +27,12 @@ class StudentRemoteRepository implements IStudentRepository{
   @override
   Future<StudentDTO> studentProfile(int meli) {
     return dataSource.studentProfile(meli);
+  }
+
+  @override
+  Future<void> studentChange(String resume) {
+    return dataSource.studentChange(resume);
+    throw UnimplementedError();
   }
 
 }

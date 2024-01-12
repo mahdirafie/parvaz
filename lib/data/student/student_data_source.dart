@@ -4,7 +4,7 @@ import 'package:parvaz_event/data/exception.dart';
 
 abstract class IStudentDataSource {
   Future<List<StudentDTO>> getAllStudent();
-
+  Future<void> studentChange(String resume);
   Future<StudentDTO> studentProfile(int meli);
 }
 
@@ -55,6 +55,14 @@ class StudentRemoteDataSource implements IStudentDataSource {
     }catch (_) {
       throw AppException();
     }
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> studentChange(String resume) async{
+    /*try{
+      await httpClient.put('/user/complete',data: {'':resume});
+    }*/
     throw UnimplementedError();
   }
 

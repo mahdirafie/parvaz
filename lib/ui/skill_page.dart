@@ -41,12 +41,15 @@ class SkillPage extends StatelessWidget {
                       decoration: BoxDecoration(
 
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(key,style: theme.textTheme.titleLarge),
-                          Text(value.toString(),style: theme.textTheme.titleLarge)
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20,10,20,10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(key,style: theme.textTheme.titleLarge),
+                            Text(value.toString(),style: theme.textTheme.titleLarge)
+                          ],
+                        ),
                       ),
                     ),
                   ),);

@@ -8,3 +8,9 @@ class StudentProfileScreenStarted implements ProfileStudentEvent{
 
   StudentProfileScreenStarted({required this.meli});
 }
+
+class StudentChangeResume implements ProfileStudentEvent{
+  final String resume;
+
+  StudentChangeResume({required this.resume});
+}

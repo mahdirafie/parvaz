@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 
 abstract class IMinorDataSource{
   Future<Map<String, int>>getPopular();
+  Future<void> setSkill(String codeMeli, String skill);
 }
 
 class MinorRemoteDataSource implements IMinorDataSource{
@@ -26,5 +27,14 @@ class MinorRemoteDataSource implements IMinorDataSource{
       throw();
     }
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> setSkill(String codeMeli, String skill)async {
+    try{
+      await httpClient.post('/skill/create',data: {'code_meli' : codeMeli, 'maharat':skill});
+    }on DioException catch (dioException){
+      throw();
+    }
   }
 }

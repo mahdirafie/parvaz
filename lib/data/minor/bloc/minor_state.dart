@@ -10,12 +10,21 @@ final class PopularSkillSuccess extends MinorState {
 
   PopularSkillSuccess({required this.list});
 }
-final class PopularSkillLoading extends MinorState{
 
-}
+final class PopularSkillLoading extends MinorState {}
 
-final class PopularSkillFailed extends MinorState{
+final class PopularSkillFailed extends MinorState {
   final String message;
 
   PopularSkillFailed({required this.message});
+}
+
+final class SetSkillLoading extends MinorState {}
+
+final class SetSkillSuccess extends MinorState {}
+
+final class SetSkillFailed extends MinorState {
+  final String message;
+
+  SetSkillFailed({required this.message});
 }

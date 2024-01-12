@@ -28,7 +28,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
   File? img;
   final List<String> studentSkills = [];
   String studentResume = "";
-  final TextEditingController _resumeController = TextEditingController();
+  TextEditingController _resumeController = TextEditingController();
 
   @override
   void dispose() {
@@ -48,6 +48,8 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
         child: BlocBuilder<ProfileStudentBloc, ProfileStudentState>(
           builder: (BuildContext context, ProfileStudentState state) {
             if(state is ProfileStudentSuccess){
+              _resumeController = TextEditingController(text: state.student.tozihatEzafe);
+              studentResume = _resumeController.text;
               int temp = state.student.maharats?.length??0;
               for(int i = 0; i < temp; i++){
                 if(!studentSkills.contains(state.student.maharats![i])){

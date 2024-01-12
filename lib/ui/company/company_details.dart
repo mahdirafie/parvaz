@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:parvaz_event/data/DTO/companyDTO.dart';
 import 'package:parvaz_event/data/constants.dart';
 import 'package:parvaz_event/theme.dart';
 import 'package:parvaz_event/ui/common/common.dart';
 
 class CompanyDetailsScreen extends StatelessWidget {
-  const CompanyDetailsScreen({super.key});
+  const CompanyDetailsScreen({super.key, required this.company});
+  final CompanyDTO company;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class CompanyDetailsScreen extends StatelessWidget {
                       BoxShadow(color: Colors.white, blurRadius: 30)
                     ], borderRadius: BorderRadius.circular(5)),
                     child: Text(
-                      'اسم شرکت',
+                      company.companyName??"",
                       style: theme.textTheme.titleLarge,
                     )),
                 background: Image.asset(
@@ -116,7 +118,7 @@ class CompanyDetailsScreen extends StatelessWidget {
                           children: [
                             const Text('نام شرکت: '),
                             Text(
-                              'نام شرکت',
+                              company.companyName??"",
                               textAlign: TextAlign.center,
                               style: theme.textTheme.bodyMedium!
                                   .copyWith(fontWeight: FontWeight.w600),
@@ -135,7 +137,7 @@ class CompanyDetailsScreen extends StatelessWidget {
                           children: [
                             const Text('آدرس شرکت: '),
                             Text(
-                              'آدرس',
+                              company.address??"",
                               textAlign: TextAlign.center,
                               style: theme.textTheme.bodyMedium!
                                   .copyWith(fontWeight: FontWeight.w600),

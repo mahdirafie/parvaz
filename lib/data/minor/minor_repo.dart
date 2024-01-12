@@ -9,6 +9,7 @@ final MinorRemoteRepository minorRepository = MinorRemoteRepository(
 
 abstract class IMinorRepository{
   Future<Map<String, int>>getPopular();
+  Future<void> setSkill(String codeMeli, String skill);
 }
 
 class MinorRemoteRepository implements IMinorRepository{
@@ -20,4 +21,10 @@ class MinorRemoteRepository implements IMinorRepository{
   Future<Map<String, int>> getPopular() {
     return dataSource.getPopular();
   }
+
+  @override
+  Future<void> setSkill(String codeMeli, String skill) {
+    return dataSource.setSkill(codeMeli,skill);
+  }
+
 }

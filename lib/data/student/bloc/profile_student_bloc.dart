@@ -17,6 +17,10 @@ class ProfileStudentBloc extends Bloc<ProfileStudentEvent, ProfileStudentState> 
         }on ProfileStudentFailed catch(_){
           emit(ProfileStudentFailed(message: 'مشکل نا مشخص'));
         }
+      }else if(event is StudentChangeResume){
+        /*try{
+          await getProfile.;
+        }*/
       }
     });
   }

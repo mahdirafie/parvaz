@@ -20,3 +20,11 @@ final class ProfileStudentFailed extends ProfileStudentState{
 
   ProfileStudentFailed({required this.message});
 }
+
+final class StudentChangeSuccess extends ProfileStudentState{
+  final String resume;
+
+  StudentChangeSuccess({required this.resume});
+
+
+}
