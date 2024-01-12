@@ -42,7 +42,7 @@ class _SignUpStudentScreenState extends State<SignUpStudentScreen> {
         subscription = bloc.stream.listen((state) {
           if (state is StudentSignUpSuccess) {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const RootScreen(),
+              builder: (context) => RootScreen(meli: int.parse(_idCode.text)),
             ));
           } else if (state is StudentSignUpUserAlreadyExists) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(

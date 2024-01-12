@@ -41,7 +41,7 @@ class _LoginStudentScreenState extends State<LoginStudentScreen> {
         subscription = bloc.stream.listen((state) {
           if (state is StudentLoginSuccess) {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const RootScreen(),
+              builder: (context) => RootScreen(meli: int.parse(_idcode.text)),
             ));
           } else if (state is StudentLoginFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(

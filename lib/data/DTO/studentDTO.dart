@@ -5,7 +5,7 @@ class StudentDTO {
   String? daneshgah;
   String? reshtehTahsili;
   String? mahalZendegi;
-  int? moadel;
+  double? moadel;
   String? maghta;
   String? shomareHamrah;
   String? sabegheKar;
@@ -33,7 +33,7 @@ class StudentDTO {
     daneshgah = json['daneshgah'];
     reshtehTahsili = json['reshteh_tahsili'];
     mahalZendegi = json['mahal_zendegi'];
-    moadel = json['moadel'];
+    moadel = double.parse("${json['moadel']}");
     maghta = json['maghta'];
     shomareHamrah = json['shomare_hamrah'];
     sabegheKar = json['sabeghe_kar'];

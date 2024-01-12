@@ -33,3 +33,15 @@ class GetAllStudentNotFound implements Exception{
 class GetAllStudentServer implements Exception{
   final String message = 'سرور مشکل دارد';
 }
+
+class ProfileUserNotFound implements Exception {
+  final String message = 'کاربر یافت نشد';
+}
+
+class ProfileBadRequest implements Exception{
+  final String message = 'درخواست شما مشکل دارد';
+}
+
+class NotFound implements Exception{
+  final String message = 'یافت نشد';
+}
